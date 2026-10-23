@@ -1,25 +1,138 @@
 aid: freighthub-com
+
 name: Forto
-description: 'Forto is a company surfaced via the API Evangelist harvest backlog (source: vc-portfolio;
-  backed by northzone) and added to the network as a stub for full-pipeline profiling.'
+
+description: 'Forto provides global B2B transportation services, offering sea freight (full container load and less than container load), air freight, rail freight, and additional logistics services. It operates a digital platform that gives customers visibility and management tools for shipments, supported by AI‑powered operations and sustainability options such as biofuel transport and emissions visibility. The company serves businesses in over 100 countries through a network of offices and partners.'
+
 url: https://raw.githubusercontent.com/api-evangelist/freighthub-com/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: harvest:vc-portfolio
-x-tier: stub
-x-tier-reason: harvest
+
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-10-23 (modular-v1; was harvest)
+
 specificationVersion: '0.20'
+
 created: '2026-10-22'
+
 modified: '2026-10-22'
+
 tags:
-- Company
-apis: []
+- Sea Freight
+- Air Freight
+- Rail Freight
+- Logistics
+- Sustainability
+- AI
+- Platform
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
-x-backed-by:
-- northzone
+
 common:
+- type: AgenticAccess
+  url: agentic-access/freighthub-com-agentic-access.yml
+- type: Spectral
+  url: rules/freighthub-com-rules.yml
+- type: JSONLD
+  url: json-ld/freighthub-com-context.jsonld
+- type: Vocabulary
+  url: vocabulary/freighthub-com-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DataModel
+  url: data-model/freighthub-com-data-model.yml
+- type: Conventions
+  url: conventions/freighthub-com-conventions.yml
+- type: Security
+  url: security/freighthub-com-vulnerability-disclosure.yml
+- type: Authentication
+  url: authentication/freighthub-com-authentication.yml
+- type: ErrorCatalog
+  url: errors/freighthub-com-problem-types.yml
+- type: Conformance
+  url: conformance/freighthub-com-conformance.yml
+- type: LLMsTxt
+  url: llms/freighthub-com-llms.txt
+- type: Hosts
+  url: hosts/freighthub-com-hosts.yml
+- type: Vendors
+  url: vendors/freighthub-com-vendors.yml
+- type: PrivacyPolicy
+  url: https://forto.com/en/privacy-notice/
+- type: GettingStarted
+  url: https://forto.com/en/get-started/
+- type: Blog
+  url: https://forto.com/en/blog/
+- type: Documentation
+  url: https://developers.forto.com/
+- type: VulnerabilityDisclosure
+  url: security/freighthub-com-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/freighthub-com-domain-security.yml
 - type: Website
   url: http://freighthub.com
+
+apis:
+- aid: freighthub-com:freighthub-com-booking-request-api
+  name: Forto Booking Request API
+  description: The Booking Request API from Forto — 5 operation(s) for booking request.
+  tags:
+  - Booking Request
+  properties:
+  - type: OpenAPI
+    url: openapi/freighthub-com-booking-request-api-openapi.yml
+- aid: freighthub-com:freighthub-com-reports-api
+  name: Forto Reports API
+  description: The Reports API from Forto — 1 operation(s) for reports.
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/freighthub-com-reports-api-openapi.yml
+- aid: freighthub-com:freighthub-com-shipment-api
+  name: Forto Shipment API
+  description: The Shipment API from Forto — 11 operation(s) for shipment.
+  tags:
+  - Shipment
+  properties:
+  - type: OpenAPI
+    url: openapi/freighthub-com-shipment-api-openapi.yml
+- aid: freighthub-com:freighthub-com-subscriptions-api
+  name: Forto Subscriptions API
+  description: The Subscriptions API from Forto — 3 operation(s) for subscriptions.
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/freighthub-com-subscriptions-api-openapi.yml
+- aid: freighthub-com:freighthub-com-tokens-api
+  name: Forto Tokens API
+  description: The Tokens API from Forto — 2 operation(s) for tokens.
+  tags:
+  - Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/freighthub-com-tokens-api-openapi.yml
+x-backed-by:
+- northzone
+
+x-coverage:
+  state: unreadable
+  reason: js-rendered-docs
+  detail: Developer portal at https://developers.forto.com returns errors and appears to be JavaScript‑rendered without a static OpenAPI spec.
+  evidence:
+    - url: https://developers.forto.com
+      status: error
+  checked: '2026-10-23'
+x-enrichment:
+  date: '2026-10-23'
+  status: enriched
+  artifacts_added: 27
+  pass: modular-v1
+  engine: identity=local,contract=local,surfaces=local,docs=local,regulatory=local

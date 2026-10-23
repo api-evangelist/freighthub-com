@@ -1,0 +1,1006 @@
+{
+  "@context": {
+    "@vocab": "https://freighthub.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "freighthub": "https://freighthub.com/schema#",
+    "ErrorDetails": "freighthub:ErrorDetails",
+    "field": {
+      "@id": "freighthub:field",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "freighthub:value"
+    },
+    "location": {
+      "@id": "freighthub:location",
+      "@type": "xsd:string"
+    },
+    "issue": {
+      "@id": "freighthub:issue",
+      "@type": "xsd:string"
+    },
+    "APIValidationError": "freighthub:APIValidationError",
+    "name": {
+      "@id": "freighthub:name",
+      "@type": "xsd:string"
+    },
+    "debugID": {
+      "@id": "freighthub:debugID",
+      "@type": "xsd:string"
+    },
+    "message": {
+      "@id": "freighthub:message",
+      "@type": "xsd:string"
+    },
+    "informationLink": {
+      "@id": "freighthub:informationLink",
+      "@type": "xsd:string"
+    },
+    "details": {
+      "@id": "freighthub:details",
+      "@container": "@list"
+    },
+    "APIAuthenticationError": "freighthub:APIAuthenticationError",
+    "APIAuthorizationError": "freighthub:APIAuthorizationError",
+    "APINotFoundError": "freighthub:APINotFoundError",
+    "APIError": "freighthub:APIError",
+    "Carrier": "freighthub:Carrier",
+    "id": {
+      "@id": "freighthub:id",
+      "@type": "xsd:string"
+    },
+    "flightNumber": {
+      "@id": "freighthub:flightNumber",
+      "@type": "xsd:string"
+    },
+    "airline": {
+      "@id": "freighthub:airline",
+      "@type": "xsd:string"
+    },
+    "airlineCode": {
+      "@id": "freighthub:airlineCode",
+      "@type": "xsd:string"
+    },
+    "ShipmentHblNumber": "freighthub:ShipmentHblNumber",
+    "type": {
+      "@id": "freighthub:type",
+      "@type": "xsd:string"
+    },
+    "number": {
+      "@id": "freighthub:number",
+      "@type": "xsd:string"
+    },
+    "Emissions": "freighthub:Emissions",
+    "preCarriage": {
+      "@id": "freighthub:preCarriage",
+      "@type": "xsd:decimal"
+    },
+    "mainCarriage": {
+      "@id": "freighthub:mainCarriage",
+      "@type": "xsd:decimal"
+    },
+    "onCarriage": {
+      "@id": "freighthub:onCarriage",
+      "@type": "xsd:decimal"
+    },
+    "ContainerCustomerData": "freighthub:ContainerCustomerData",
+    "earliestETW": {
+      "@id": "freighthub:earliestETW",
+      "@type": "xsd:dateTime"
+    },
+    "latestETW": {
+      "@id": "freighthub:latestETW",
+      "@type": "xsd:dateTime"
+    },
+    "CustomerTag": "freighthub:CustomerTag",
+    "key": {
+      "@id": "freighthub:key",
+      "@type": "xsd:string"
+    },
+    "ShipmentContainer": "freighthub:ShipmentContainer",
+    "size": {
+      "@id": "freighthub:size",
+      "@type": "xsd:string"
+    },
+    "_id": {
+      "@id": "freighthub:_id",
+      "@type": "xsd:string"
+    },
+    "containerNumber": {
+      "@id": "freighthub:containerNumber",
+      "@type": "xsd:string"
+    },
+    "customerReference": {
+      "@id": "freighthub:customerReference",
+      "@type": "xsd:string"
+    },
+    "customsReferenceNumber": {
+      "@id": "freighthub:customsReferenceNumber",
+      "@container": "@list"
+    },
+    "customerData": {
+      "@id": "freighthub:customerData"
+    },
+    "tags": {
+      "@id": "freighthub:tags",
+      "@container": "@list"
+    },
+    "ShipmentCargo": "freighthub:ShipmentCargo",
+    "quantity": {
+      "@id": "freighthub:quantity",
+      "@type": "xsd:decimal"
+    },
+    "height": {
+      "@id": "freighthub:height",
+      "@type": "xsd:decimal"
+    },
+    "length": {
+      "@id": "freighthub:length",
+      "@type": "xsd:decimal"
+    },
+    "width": {
+      "@id": "freighthub:width",
+      "@type": "xsd:decimal"
+    },
+    "volume": {
+      "@id": "freighthub:volume",
+      "@type": "xsd:decimal"
+    },
+    "totalVolume": {
+      "@id": "freighthub:totalVolume",
+      "@type": "xsd:decimal"
+    },
+    "unitWeight": {
+      "@id": "freighthub:unitWeight",
+      "@type": "xsd:decimal"
+    },
+    "totalWeight": {
+      "@id": "freighthub:totalWeight",
+      "@type": "xsd:decimal"
+    },
+    "commodityType": {
+      "@id": "freighthub:commodityType",
+      "@type": "xsd:string"
+    },
+    "Shipment": "freighthub:Shipment",
+    "shipName": {
+      "@id": "freighthub:shipName",
+      "@type": "xsd:string"
+    },
+    "shipperName": {
+      "@id": "freighthub:shipperName",
+      "@type": "xsd:string"
+    },
+    "consigneeName": {
+      "@id": "freighthub:consigneeName",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "freighthub:state",
+      "@type": "xsd:string"
+    },
+    "transportType": {
+      "@id": "freighthub:transportType",
+      "@type": "xsd:string"
+    },
+    "transportMode": {
+      "@id": "freighthub:transportMode",
+      "@type": "xsd:string"
+    },
+    "portOfLoading": {
+      "@id": "freighthub:portOfLoading",
+      "@type": "xsd:string"
+    },
+    "portOfDischarge": {
+      "@id": "freighthub:portOfDischarge",
+      "@type": "xsd:string"
+    },
+    "cargoReadyDate": {
+      "@id": "freighthub:cargoReadyDate",
+      "@type": "xsd:dateTime"
+    },
+    "estimatedDepartureDate": {
+      "@id": "freighthub:estimatedDepartureDate",
+      "@type": "xsd:dateTime"
+    },
+    "estimatedArrivalDate": {
+      "@id": "freighthub:estimatedArrivalDate",
+      "@type": "xsd:dateTime"
+    },
+    "incoTerm": {
+      "@id": "freighthub:incoTerm",
+      "@type": "xsd:string"
+    },
+    "carrier": {
+      "@id": "freighthub:carrier"
+    },
+    "onCarriageTransportMode": {
+      "@id": "freighthub:onCarriageTransportMode",
+      "@type": "xsd:string"
+    },
+    "bookingNumber": {
+      "@id": "freighthub:bookingNumber",
+      "@type": "xsd:string"
+    },
+    "hblNumber": {
+      "@id": "freighthub:hblNumber",
+      "@type": "xsd:string"
+    },
+    "hblList": {
+      "@id": "freighthub:hblList"
+    },
+    "mblNumber": {
+      "@id": "freighthub:mblNumber",
+      "@type": "xsd:string"
+    },
+    "mawbNumber": {
+      "@id": "freighthub:mawbNumber",
+      "@type": "xsd:string"
+    },
+    "hawbNumber": {
+      "@id": "freighthub:hawbNumber",
+      "@type": "xsd:string"
+    },
+    "emissions": {
+      "@id": "freighthub:emissions",
+      "@container": "@list"
+    },
+    "containers": {
+      "@id": "freighthub:containers",
+      "@container": "@list"
+    },
+    "cargo": {
+      "@id": "freighthub:cargo",
+      "@container": "@list"
+    },
+    "ListShipmentsResponse": "freighthub:ListShipmentsResponse",
+    "items": {
+      "@id": "freighthub:items",
+      "@container": "@list"
+    },
+    "total": {
+      "@id": "freighthub:total",
+      "@type": "xsd:decimal"
+    },
+    "totalItems": {
+      "@id": "freighthub:totalItems",
+      "@type": "xsd:decimal"
+    },
+    "page": {
+      "@id": "freighthub:page",
+      "@type": "xsd:decimal"
+    },
+    "pageSize": {
+      "@id": "freighthub:pageSize",
+      "@type": "xsd:decimal"
+    },
+    "ShipmentDocument": "freighthub:ShipmentDocument",
+    "link": {
+      "@id": "freighthub:link",
+      "@type": "xsd:string"
+    },
+    "linkValidUntil": {
+      "@id": "freighthub:linkValidUntil",
+      "@type": "xsd:dateTime"
+    },
+    "createdAt": {
+      "@id": "freighthub:createdAt",
+      "@type": "xsd:dateTime"
+    },
+    "ShipmentDocuments": "freighthub:ShipmentDocuments",
+    "shipmentId": {
+      "@id": "freighthub:shipmentId",
+      "@type": "xsd:string"
+    },
+    "documents": {
+      "@id": "freighthub:documents",
+      "@container": "@list"
+    },
+    "FileUpload": "freighthub:FileUpload",
+    "file": {
+      "@id": "freighthub:file",
+      "@type": "xsd:string"
+    },
+    "ShipmentInvoiceMoney": "freighthub:ShipmentInvoiceMoney",
+    "amount": {
+      "@id": "freighthub:amount",
+      "@type": "xsd:decimal"
+    },
+    "currency": {
+      "@id": "freighthub:currency",
+      "@type": "xsd:string"
+    },
+    "ShipmentInvoiceLineItem": "freighthub:ShipmentInvoiceLineItem",
+    "description": {
+      "@id": "freighthub:description",
+      "@type": "xsd:string"
+    },
+    "costCode": {
+      "@id": "freighthub:costCode",
+      "@type": "xsd:string"
+    },
+    "vatClass": {
+      "@id": "freighthub:vatClass",
+      "@type": "xsd:string"
+    },
+    "exchangeRate": {
+      "@id": "freighthub:exchangeRate",
+      "@type": "xsd:decimal"
+    },
+    "unitPrice": {
+      "@id": "freighthub:unitPrice",
+      "@type": "@id"
+    },
+    "netAmount": {
+      "@id": "freighthub:netAmount",
+      "@type": "@id"
+    },
+    "ShipmentInvoice": "freighthub:ShipmentInvoice",
+    "invoiceNumber": {
+      "@id": "freighthub:invoiceNumber",
+      "@type": "xsd:string"
+    },
+    "invoiceType": {
+      "@id": "freighthub:invoiceType",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "freighthub:status",
+      "@type": "xsd:string"
+    },
+    "lineItems": {
+      "@id": "freighthub:lineItems",
+      "@container": "@list"
+    },
+    "issueDate": {
+      "@id": "freighthub:issueDate",
+      "@type": "xsd:dateTime"
+    },
+    "grossAmount": {
+      "@id": "freighthub:grossAmount",
+      "@type": "@id"
+    },
+    "vatAmount": {
+      "@id": "freighthub:vatAmount",
+      "@type": "@id"
+    },
+    "dueDate": {
+      "@id": "freighthub:dueDate",
+      "@type": "xsd:dateTime"
+    },
+    "dueAmount": {
+      "@id": "freighthub:dueAmount"
+    },
+    "ShipmentInvoices": "freighthub:ShipmentInvoices",
+    "invoices": {
+      "@id": "freighthub:invoices",
+      "@container": "@list"
+    },
+    "TransportPlanStatus": "freighthub:TransportPlanStatus",
+    "timestamp": {
+      "@id": "freighthub:timestamp",
+      "@type": "xsd:dateTime"
+    },
+    "isConfirmed": {
+      "@id": "freighthub:isConfirmed",
+      "@type": "xsd:boolean"
+    },
+    "isActual": {
+      "@id": "freighthub:isActual",
+      "@type": "xsd:boolean"
+    },
+    "delay": {
+      "@id": "freighthub:delay",
+      "@type": "xsd:decimal"
+    },
+    "TransportPlanSegmentAddressPort": "freighthub:TransportPlanSegmentAddressPort",
+    "TransportPlanSegmentAddressAddress": "freighthub:TransportPlanSegmentAddressAddress",
+    "fullString": {
+      "@id": "freighthub:fullString",
+      "@type": "xsd:string"
+    },
+    "streetNumber": {
+      "@id": "freighthub:streetNumber",
+      "@type": "xsd:string"
+    },
+    "street": {
+      "@id": "freighthub:street",
+      "@type": "xsd:string"
+    },
+    "district": {
+      "@id": "freighthub:district",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "freighthub:city",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "freighthub:country",
+      "@type": "xsd:string"
+    },
+    "countryCode": {
+      "@id": "freighthub:countryCode",
+      "@type": "xsd:string"
+    },
+    "postalCode": {
+      "@id": "freighthub:postalCode",
+      "@type": "xsd:string"
+    },
+    "TransportPlanSegmentAddressDepot": "freighthub:TransportPlanSegmentAddressDepot",
+    "TransportPlanSegment": "freighthub:TransportPlanSegment",
+    "origin": {
+      "@id": "freighthub:origin"
+    },
+    "destination": {
+      "@id": "freighthub:destination"
+    },
+    "duration": {
+      "@id": "freighthub:duration",
+      "@type": "xsd:decimal"
+    },
+    "TransportPlanV1": "freighthub:TransportPlanV1",
+    "cargoReady": {
+      "@id": "freighthub:cargoReady"
+    },
+    "departure": {
+      "@id": "freighthub:departure"
+    },
+    "arrival": {
+      "@id": "freighthub:arrival"
+    },
+    "pickup": {
+      "@id": "freighthub:pickup"
+    },
+    "delivery": {
+      "@id": "freighthub:delivery"
+    },
+    "containerGateIn": {
+      "@id": "freighthub:containerGateIn"
+    },
+    "containerGateOut": {
+      "@id": "freighthub:containerGateOut"
+    },
+    "transshipmentArrival": {
+      "@id": "freighthub:transshipmentArrival"
+    },
+    "transshipmentDeparture": {
+      "@id": "freighthub:transshipmentDeparture"
+    },
+    "transshipmentArrival2": {
+      "@id": "freighthub:transshipmentArrival2"
+    },
+    "transshipmentDeparture2": {
+      "@id": "freighthub:transshipmentDeparture2"
+    },
+    "transshipmentArrival3": {
+      "@id": "freighthub:transshipmentArrival3"
+    },
+    "transshipmentDeparture3": {
+      "@id": "freighthub:transshipmentDeparture3"
+    },
+    "transshipmentArrival4": {
+      "@id": "freighthub:transshipmentArrival4"
+    },
+    "transshipmentDeparture4": {
+      "@id": "freighthub:transshipmentDeparture4"
+    },
+    "containerEmptyPickup": {
+      "@id": "freighthub:containerEmptyPickup"
+    },
+    "containerEmptyReturn": {
+      "@id": "freighthub:containerEmptyReturn"
+    },
+    "containerDischargedDestination": {
+      "@id": "freighthub:containerDischargedDestination"
+    },
+    "customsStopOrigin": {
+      "@id": "freighthub:customsStopOrigin"
+    },
+    "customsStopDestination": {
+      "@id": "freighthub:customsStopDestination"
+    },
+    "containerDischargedTransshipment1": {
+      "@id": "freighthub:containerDischargedTransshipment1"
+    },
+    "containerDischargedTransshipment2": {
+      "@id": "freighthub:containerDischargedTransshipment2"
+    },
+    "containerDischargedTransshipment3": {
+      "@id": "freighthub:containerDischargedTransshipment3"
+    },
+    "containerDischargedTransshipment4": {
+      "@id": "freighthub:containerDischargedTransshipment4"
+    },
+    "containerLoadedTransshipment1": {
+      "@id": "freighthub:containerLoadedTransshipment1"
+    },
+    "containerLoadedTransshipment2": {
+      "@id": "freighthub:containerLoadedTransshipment2"
+    },
+    "containerLoadedTransshipment3": {
+      "@id": "freighthub:containerLoadedTransshipment3"
+    },
+    "containerLoadedTransshipment4": {
+      "@id": "freighthub:containerLoadedTransshipment4"
+    },
+    "transitAirportArrival": {
+      "@id": "freighthub:transitAirportArrival"
+    },
+    "transitAirportArrival2": {
+      "@id": "freighthub:transitAirportArrival2"
+    },
+    "transitAirportArrival3": {
+      "@id": "freighthub:transitAirportArrival3"
+    },
+    "transitAirportArrival4": {
+      "@id": "freighthub:transitAirportArrival4"
+    },
+    "transitAirportDeparture": {
+      "@id": "freighthub:transitAirportDeparture"
+    },
+    "transitAirportDeparture2": {
+      "@id": "freighthub:transitAirportDeparture2"
+    },
+    "transitAirportDeparture3": {
+      "@id": "freighthub:transitAirportDeparture3"
+    },
+    "transitAirportDeparture4": {
+      "@id": "freighthub:transitAirportDeparture4"
+    },
+    "containerGateInMultimodalTerminalOrigin": {
+      "@id": "freighthub:containerGateInMultimodalTerminalOrigin"
+    },
+    "containerGateOutMultimodalTerminalOrigin": {
+      "@id": "freighthub:containerGateOutMultimodalTerminalOrigin"
+    },
+    "containerGateInMultimodalTerminalDestination": {
+      "@id": "freighthub:containerGateInMultimodalTerminalDestination"
+    },
+    "containerGateOutMultimodalTerminalDestination": {
+      "@id": "freighthub:containerGateOutMultimodalTerminalDestination"
+    },
+    "containerDepartureAtShipper": {
+      "@id": "freighthub:containerDepartureAtShipper"
+    },
+    "verifiedGrossMarginStop": {
+      "@id": "freighthub:verifiedGrossMarginStop"
+    },
+    "departureFromPointOfReceipt": {
+      "@id": "freighthub:departureFromPointOfReceipt"
+    },
+    "containerLoadingOrigin": {
+      "@id": "freighthub:containerLoadingOrigin"
+    },
+    "containerEmptyDeparture": {
+      "@id": "freighthub:containerEmptyDeparture"
+    },
+    "containerDepartureDelivery": {
+      "@id": "freighthub:containerDepartureDelivery"
+    },
+    "arrivalPartner": {
+      "@id": "freighthub:arrivalPartner"
+    },
+    "departurePartner": {
+      "@id": "freighthub:departurePartner"
+    },
+    "arrivalOrigin": {
+      "@id": "freighthub:arrivalOrigin"
+    },
+    "receivedFromFlight": {
+      "@id": "freighthub:receivedFromFlight"
+    },
+    "trackableId": {
+      "@id": "freighthub:trackableId",
+      "@type": "xsd:string"
+    },
+    "preCarriageSegments": {
+      "@id": "freighthub:preCarriageSegments",
+      "@container": "@list"
+    },
+    "segments": {
+      "@id": "freighthub:segments",
+      "@container": "@list"
+    },
+    "onCarriageSegments": {
+      "@id": "freighthub:onCarriageSegments",
+      "@container": "@list"
+    },
+    "containerYardCutoff": {
+      "@id": "freighthub:containerYardCutoff",
+      "@type": "xsd:dateTime"
+    },
+    "ShipmentTransportPlanV1": "freighthub:ShipmentTransportPlanV1",
+    "transportPlans": {
+      "@id": "freighthub:transportPlans",
+      "@container": "@list"
+    },
+    "CarriageLegs": "freighthub:CarriageLegs",
+    "legs": {
+      "@id": "freighthub:legs",
+      "@container": "@list"
+    },
+    "TransportPlanV2": "freighthub:TransportPlanV2",
+    "ShipmentTransportPlanV2": "freighthub:ShipmentTransportPlanV2",
+    "transportation": {
+      "@id": "freighthub:transportation"
+    },
+    "ShipmentTransportPlanMilestones": "freighthub:ShipmentTransportPlanMilestones",
+    "ShipmentTransportPlanEventsV2": "freighthub:ShipmentTransportPlanEventsV2",
+    "containerNumbers": {
+      "@id": "freighthub:containerNumbers",
+      "@type": "xsd:string"
+    },
+    "events": {
+      "@id": "freighthub:events"
+    },
+    "Subscription": "freighthub:Subscription",
+    "url": {
+      "@id": "freighthub:url",
+      "@type": "@id"
+    },
+    "eventTypes": {
+      "@id": "freighthub:eventTypes",
+      "@container": "@list"
+    },
+    "signatureKey": {
+      "@id": "freighthub:signatureKey",
+      "@type": "xsd:string"
+    },
+    "ListSubscriptionsResponse": "freighthub:ListSubscriptionsResponse",
+    "CreateSubscriptionBody": "freighthub:CreateSubscriptionBody",
+    "OkResponse": "freighthub:OkResponse",
+    "ok": {
+      "@id": "freighthub:ok",
+      "@type": "xsd:boolean"
+    },
+    "InboxEventRecord": "freighthub:InboxEventRecord",
+    "subscriptionId": {
+      "@id": "freighthub:subscriptionId",
+      "@type": "xsd:string"
+    },
+    "sID": {
+      "@id": "freighthub:sID",
+      "@type": "xsd:string"
+    },
+    "eventType": {
+      "@id": "freighthub:eventType",
+      "@type": "xsd:string"
+    },
+    "data": {
+      "@id": "freighthub:data"
+    },
+    "ListInboxEntriesResponse": "freighthub:ListInboxEntriesResponse",
+    "BookingRequestLocation": "freighthub:BookingRequestLocation",
+    "lat": {
+      "@id": "freighthub:lat",
+      "@type": "xsd:decimal"
+    },
+    "lng": {
+      "@id": "freighthub:lng",
+      "@type": "xsd:decimal"
+    },
+    "BookingRequestAddressDetails": "freighthub:BookingRequestAddressDetails",
+    "googlePlaceId": {
+      "@id": "freighthub:googlePlaceId",
+      "@type": "xsd:string"
+    },
+    "formattedAddress": {
+      "@id": "freighthub:formattedAddress",
+      "@type": "xsd:string"
+    },
+    "cityCode": {
+      "@id": "freighthub:cityCode",
+      "@type": "xsd:string"
+    },
+    "plusCompoundCode": {
+      "@id": "freighthub:plusCompoundCode",
+      "@type": "xsd:string"
+    },
+    "plusGlobalCode": {
+      "@id": "freighthub:plusGlobalCode",
+      "@type": "xsd:string"
+    },
+    "BookingRequestContainer": "freighthub:BookingRequestContainer",
+    "externalId": {
+      "@id": "freighthub:externalId",
+      "@type": "xsd:string"
+    },
+    "containerType": {
+      "@id": "freighthub:containerType",
+      "@type": "xsd:string"
+    },
+    "weight": {
+      "@id": "freighthub:weight",
+      "@type": "xsd:decimal"
+    },
+    "BookingRequestParty": "freighthub:BookingRequestParty",
+    "address": {
+      "@id": "freighthub:address",
+      "@type": "xsd:string"
+    },
+    "phone": {
+      "@id": "freighthub:phone",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "freighthub:email",
+      "@type": "xsd:string"
+    },
+    "BookingRequestDetails": "freighthub:BookingRequestDetails",
+    "mode": {
+      "@id": "freighthub:mode",
+      "@type": "xsd:string"
+    },
+    "deliveryType": {
+      "@id": "freighthub:deliveryType",
+      "@type": "xsd:string"
+    },
+    "pol": {
+      "@id": "freighthub:pol",
+      "@type": "xsd:string"
+    },
+    "pod": {
+      "@id": "freighthub:pod",
+      "@type": "xsd:string"
+    },
+    "originObject": {
+      "@id": "freighthub:originObject",
+      "@type": "@id"
+    },
+    "destinationObject": {
+      "@id": "freighthub:destinationObject",
+      "@type": "@id"
+    },
+    "incoterm": {
+      "@id": "freighthub:incoterm",
+      "@type": "xsd:string"
+    },
+    "customs": {
+      "@id": "freighthub:customs",
+      "@type": "xsd:boolean"
+    },
+    "requiredCustomTypes": {
+      "@id": "freighthub:requiredCustomTypes",
+      "@container": "@list"
+    },
+    "hsCodesCount": {
+      "@id": "freighthub:hsCodesCount",
+      "@type": "xsd:decimal"
+    },
+    "specialEquipment": {
+      "@id": "freighthub:specialEquipment",
+      "@type": "xsd:boolean"
+    },
+    "dangerousGoods": {
+      "@id": "freighthub:dangerousGoods",
+      "@type": "xsd:boolean"
+    },
+    "bookingParty": {
+      "@id": "freighthub:bookingParty",
+      "@type": "xsd:string"
+    },
+    "consigneeInformation": {
+      "@id": "freighthub:consigneeInformation",
+      "@type": "@id"
+    },
+    "shipperInformation": {
+      "@id": "freighthub:shipperInformation",
+      "@type": "@id"
+    },
+    "pickupInformation": {
+      "@id": "freighthub:pickupInformation",
+      "@type": "@id"
+    },
+    "deliveryInformation": {
+      "@id": "freighthub:deliveryInformation",
+      "@type": "@id"
+    },
+    "isStackable": {
+      "@id": "freighthub:isStackable",
+      "@type": "xsd:boolean"
+    },
+    "BookingRequestAssignees": "freighthub:BookingRequestAssignees",
+    "opsId": {
+      "@id": "freighthub:opsId",
+      "@type": "xsd:string"
+    },
+    "salesId": {
+      "@id": "freighthub:salesId",
+      "@type": "xsd:string"
+    },
+    "BookingRequestProgressionSettings": "freighthub:BookingRequestProgressionSettings",
+    "shouldAutoConfirm": {
+      "@id": "freighthub:shouldAutoConfirm",
+      "@type": "xsd:boolean"
+    },
+    "shouldAutoGenerateSheet": {
+      "@id": "freighthub:shouldAutoGenerateSheet",
+      "@type": "xsd:boolean"
+    },
+    "shouldAutoSelectOption": {
+      "@id": "freighthub:shouldAutoSelectOption",
+      "@type": "xsd:boolean"
+    },
+    "shouldAutoBookShipment": {
+      "@id": "freighthub:shouldAutoBookShipment",
+      "@type": "xsd:boolean"
+    },
+    "defaultAssignees": {
+      "@id": "freighthub:defaultAssignees",
+      "@type": "@id"
+    },
+    "BookingRequestSheet": "freighthub:BookingRequestSheet",
+    "requestedAt": {
+      "@id": "freighthub:requestedAt",
+      "@type": "xsd:dateTime"
+    },
+    "requestedBy": {
+      "@id": "freighthub:requestedBy",
+      "@type": "xsd:string"
+    },
+    "requiresManualQuote": {
+      "@id": "freighthub:requiresManualQuote",
+      "@type": "xsd:boolean"
+    },
+    "manualQuoteCompleted": {
+      "@id": "freighthub:manualQuoteCompleted",
+      "@type": "xsd:boolean"
+    },
+    "sheetId": {
+      "@id": "freighthub:sheetId",
+      "@type": "xsd:string"
+    },
+    "completedAt": {
+      "@id": "freighthub:completedAt",
+      "@type": "xsd:dateTime"
+    },
+    "validUntil": {
+      "@id": "freighthub:validUntil",
+      "@type": "xsd:dateTime"
+    },
+    "optionId": {
+      "@id": "freighthub:optionId",
+      "@type": "xsd:string"
+    },
+    "BookingRequestCompletion": "freighthub:BookingRequestCompletion",
+    "BookingRequestFinalization": "freighthub:BookingRequestFinalization",
+    "finalizedBy": {
+      "@id": "freighthub:finalizedBy",
+      "@type": "xsd:string"
+    },
+    "finalizedAt": {
+      "@id": "freighthub:finalizedAt",
+      "@type": "xsd:dateTime"
+    },
+    "BookingRequestConfirmation": "freighthub:BookingRequestConfirmation",
+    "confirmedBy": {
+      "@id": "freighthub:confirmedBy",
+      "@type": "xsd:string"
+    },
+    "confirmedAt": {
+      "@id": "freighthub:confirmedAt",
+      "@type": "xsd:dateTime"
+    },
+    "BookingRequestManualQuote": "freighthub:BookingRequestManualQuote",
+    "manualQuoteValidUntil": {
+      "@id": "freighthub:manualQuoteValidUntil",
+      "@type": "xsd:dateTime"
+    },
+    "manualQuoteRequestId": {
+      "@id": "freighthub:manualQuoteRequestId",
+      "@type": "xsd:string"
+    },
+    "BookingRequestDiscarding": "freighthub:BookingRequestDiscarding",
+    "discardedBy": {
+      "@id": "freighthub:discardedBy",
+      "@type": "xsd:string"
+    },
+    "discardedAt": {
+      "@id": "freighthub:discardedAt",
+      "@type": "xsd:dateTime"
+    },
+    "discardedReason": {
+      "@id": "freighthub:discardedReason",
+      "@type": "xsd:string"
+    },
+    "BookingRequest": "freighthub:BookingRequest",
+    "_version": {
+      "@id": "freighthub:_version",
+      "@type": "xsd:decimal"
+    },
+    "userId": {
+      "@id": "freighthub:userId",
+      "@type": "xsd:string"
+    },
+    "customerId": {
+      "@id": "freighthub:customerId",
+      "@type": "xsd:string"
+    },
+    "updatedAt": {
+      "@id": "freighthub:updatedAt",
+      "@type": "xsd:dateTime"
+    },
+    "expiresAt": {
+      "@id": "freighthub:expiresAt",
+      "@type": "xsd:dateTime"
+    },
+    "priority": {
+      "@id": "freighthub:priority",
+      "@type": "xsd:decimal"
+    },
+    "progressionSettings": {
+      "@id": "freighthub:progressionSettings",
+      "@type": "@id"
+    },
+    "notificationSettings": {
+      "@id": "freighthub:notificationSettings"
+    },
+    "assignees": {
+      "@id": "freighthub:assignees",
+      "@type": "@id"
+    },
+    "notes": {
+      "@id": "freighthub:notes",
+      "@type": "xsd:string"
+    },
+    "sheet": {
+      "@id": "freighthub:sheet",
+      "@type": "@id"
+    },
+    "completion": {
+      "@id": "freighthub:completion",
+      "@type": "@id"
+    },
+    "finalization": {
+      "@id": "freighthub:finalization",
+      "@type": "@id"
+    },
+    "confirmation": {
+      "@id": "freighthub:confirmation",
+      "@type": "@id"
+    },
+    "manualQuote": {
+      "@id": "freighthub:manualQuote",
+      "@type": "@id"
+    },
+    "discarding": {
+      "@id": "freighthub:discarding",
+      "@type": "@id"
+    },
+    "BookingRequestState": "freighthub:BookingRequestState",
+    "ListBookingRequestResponse": "freighthub:ListBookingRequestResponse",
+    "count": {
+      "@id": "freighthub:count",
+      "@type": "xsd:decimal"
+    },
+    "CreateBookingRequestBodyDetails": "freighthub:CreateBookingRequestBodyDetails",
+    "CreateBookingRequestBody": "freighthub:CreateBookingRequestBody",
+    "CreateBookingRequestResponse": "freighthub:CreateBookingRequestResponse",
+    "UpdateBookingRequestBody": "freighthub:UpdateBookingRequestBody",
+    "UpdateBookingRequestResponse": "freighthub:UpdateBookingRequestResponse",
+    "FinalizeBookingRequestResponse": "freighthub:FinalizeBookingRequestResponse",
+    "DiscardBookingRequestBody": "freighthub:DiscardBookingRequestBody",
+    "DiscardBookingRequestResponse": "freighthub:DiscardBookingRequestResponse",
+    "CreateCustomerTokenBody": "freighthub:CreateCustomerTokenBody",
+    "Token": "freighthub:Token",
+    "token": {
+      "@id": "freighthub:token",
+      "@type": "xsd:string"
+    },
+    "lastUsedAt": {
+      "@id": "freighthub:lastUsedAt",
+      "@type": "xsd:dateTime"
+    },
+    "GetCustomerTokensResponse": "freighthub:GetCustomerTokensResponse"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Forto API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Forto's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-23) from openapi/freighthub-com-forto-platform-api-openapi.yml.",
+  "dcterms:created": "2026-10-23",
+  "dcterms:source": [
+    "openapi/freighthub-com-forto-platform-api-openapi.yml"
+  ]
+}

@@ -1,0 +1,386 @@
+generated: '2026-10-23'
+method: derived
+generator: derive-vocabulary.py
+source: openapi/freighthub-com-forto-platform-api-openapi.yml
+vocabulary:
+  name: Forto Domain Vocabulary
+  description: 'Terms declared by Forto''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-23'
+  terms:
+  - term: ErrorDetails
+    definition: 'Object declared by the contract with fields: field, value, location, issue.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ErrorDetails
+  - term: APIValidationError
+    definition: 'Object declared by the contract with fields: name, debugID, message, informationLink, details.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/APIValidationError
+  - term: APIAuthenticationError
+    definition: 'Object declared by the contract with fields: name, debugID, message, informationLink, details.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/APIAuthenticationError
+  - term: APIAuthorizationError
+    definition: 'Object declared by the contract with fields: name, debugID, message, informationLink, details.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/APIAuthorizationError
+  - term: APINotFoundError
+    definition: 'Object declared by the contract with fields: name, debugID, message, informationLink, details.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/APINotFoundError
+  - term: APIError
+    definition: 'Object declared by the contract with fields: name, debugID, message, informationLink, details.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/APIError
+  - term: Carrier
+    definition: 'Object declared by the contract with fields: id, name, flightNumber, airline, airlineCode.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/Carrier
+  - term: ShipmentHblNumber
+    definition: 'Object declared by the contract with fields: type, number.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ShipmentHblNumber
+  - term: Emissions
+    definition: 'Object declared by the contract with fields: preCarriage, mainCarriage, onCarriage.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/Emissions
+  - term: ContainerCustomerData
+    definition: 'Object declared by the contract with fields: earliestETW, latestETW.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ContainerCustomerData
+  - term: CustomerTag
+    definition: 'Object declared by the contract with fields: key, value.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/CustomerTag
+  - term: ShipmentContainer
+    definition: 'Object declared by the contract with fields: size, _id, containerNumber, customerReference, customsReferenceNumber, customerData,
+      tags.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ShipmentContainer
+  - term: ShipmentCargo
+    definition: 'Object declared by the contract with fields: quantity, height, length, width, volume, totalVolume, unitWeight, totalWeight, commodityType.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ShipmentCargo
+  - term: Shipment
+    definition: 'Object declared by the contract with fields: id, customerReference, shipName, shipperName, consigneeName, state, transportType,
+      transportMode, portOfLoading, portOfDischarge, cargoReadyDate, estimatedDepartureDate. (14 more)'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/Shipment
+  - term: ListShipmentsResponse
+    definition: 'Object declared by the contract with fields: items, total, totalItems, page, pageSize.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ListShipmentsResponse
+  - term: ShipmentDocument
+    definition: 'Object declared by the contract with fields: _id, type, name, link, linkValidUntil, createdAt.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ShipmentDocument
+  - term: ShipmentDocuments
+    definition: 'Object declared by the contract with fields: shipmentId, customerReference, documents.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ShipmentDocuments
+  - term: FileUpload
+    definition: 'Object declared by the contract with fields: file.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/FileUpload
+  - term: ShipmentInvoiceMoney
+    definition: 'Object declared by the contract with fields: amount, currency.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ShipmentInvoiceMoney
+  - term: ShipmentInvoiceLineItem
+    definition: 'Object declared by the contract with fields: description, costCode, quantity, vatClass, exchangeRate, containerNumber, unitPrice,
+      netAmount.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ShipmentInvoiceLineItem
+  - term: ShipmentInvoice
+    definition: 'Object declared by the contract with fields: invoiceNumber, invoiceType, status, lineItems, issueDate, netAmount, grossAmount,
+      vatAmount, link, linkValidUntil, dueDate, dueAmount.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ShipmentInvoice
+  - term: ShipmentInvoices
+    definition: 'Object declared by the contract with fields: shipmentId, customerReference, invoices.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ShipmentInvoices
+  - term: TransportPlanStatus
+    definition: 'Object declared by the contract with fields: timestamp, isConfirmed, isActual, delay.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/TransportPlanStatus
+  - term: TransportPlanSegmentAddressPort
+    definition: 'Object declared by the contract with fields: type, id.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/TransportPlanSegmentAddressPort
+  - term: TransportPlanSegmentAddressAddress
+    definition: 'Object declared by the contract with fields: type, fullString, streetNumber, street, district, city, state, country, countryCode,
+      postalCode.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/TransportPlanSegmentAddressAddress
+  - term: TransportPlanSegmentAddressDepot
+    definition: 'Object declared by the contract with fields: fullString, streetNumber, street, district, city, state, country, countryCode, postalCode,
+      type, name.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/TransportPlanSegmentAddressDepot
+  - term: TransportPlanSegment
+    definition: 'Object declared by the contract with fields: origin, destination, shipName, duration, type, airline, airlineCode, flightNumber.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/TransportPlanSegment
+  - term: TransportPlanV1
+    definition: 'Object declared by the contract with fields: cargoReady, departure, arrival, pickup, delivery, containerGateIn, containerGateOut,
+      transshipmentArrival, transshipmentDeparture, transshipmentArrival2, transshipmentDeparture2, transshipmentArrival3. (46 more)'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/TransportPlanV1
+  - term: ShipmentTransportPlanV1
+    definition: 'Object declared by the contract with fields: id, customerReference, transportPlans.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ShipmentTransportPlanV1
+  - term: CarriageLegs
+    definition: 'Object declared by the contract with fields: legs.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/CarriageLegs
+  - term: TransportPlanV2
+    definition: 'Object declared by the contract with fields: containerNumber, containerYardCutoff, onCarriage, preCarriage, mainCarriage.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/TransportPlanV2
+  - term: ShipmentTransportPlanV2
+    definition: 'Object declared by the contract with fields: shipmentId, customerReference, transportation.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ShipmentTransportPlanV2
+  - term: ShipmentTransportPlanMilestones
+    definition: 'Object declared by the contract with fields: cargoReady, departure, arrival, pickup, delivery, containerGateIn, containerGateOut,
+      transshipmentArrival, transshipmentDeparture, transshipmentArrival2, transshipmentDeparture2, transshipmentArrival3. (38 more)'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ShipmentTransportPlanMilestones
+  - term: ShipmentTransportPlanEventsV2
+    definition: 'Object declared by the contract with fields: shipmentId, customerReference, containerNumbers, events.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ShipmentTransportPlanEventsV2
+  - term: Subscription
+    definition: 'Object declared by the contract with fields: id, type, name, url, eventTypes, signatureKey.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/Subscription
+  - term: ListSubscriptionsResponse
+    definition: 'Object declared by the contract with fields: items, totalItems, page, pageSize.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ListSubscriptionsResponse
+  - term: CreateSubscriptionBody
+    definition: 'Object declared by the contract with fields: name, eventTypes, type, url.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/CreateSubscriptionBody
+  - term: OkResponse
+    definition: 'Object declared by the contract with fields: ok.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/OkResponse
+  - term: InboxEventRecord
+    definition: 'Object declared by the contract with fields: id, subscriptionId, sID, customerReference, eventType, data.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/InboxEventRecord
+  - term: ListInboxEntriesResponse
+    definition: 'Object declared by the contract with fields: items, totalItems, page, pageSize.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ListInboxEntriesResponse
+  - term: BookingRequestLocation
+    definition: 'Object declared by the contract with fields: lat, lng.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequestLocation
+  - term: BookingRequestAddressDetails
+    definition: 'Object declared by the contract with fields: googlePlaceId, formattedAddress, countryCode, city, location, cityCode, postalCode,
+      plusCompoundCode, plusGlobalCode, country, state, district. (2 more)'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequestAddressDetails
+  - term: BookingRequestContainer
+    definition: 'Object declared by the contract with fields: commodityType, customerReference, externalId, quantity, containerType, width, height,
+      length, weight.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequestContainer
+  - term: BookingRequestParty
+    definition: 'Object declared by the contract with fields: name, address, phone, email, externalId.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequestParty
+  - term: BookingRequestDetails
+    definition: 'Object declared by the contract with fields: type, mode, cargoReadyDate, deliveryType, origin, destination, pol, pod, originObject,
+      destinationObject, incoterm, containers. (13 more)'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequestDetails
+  - term: BookingRequestAssignees
+    definition: 'Object declared by the contract with fields: opsId, salesId.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequestAssignees
+  - term: BookingRequestProgressionSettings
+    definition: 'Object declared by the contract with fields: shouldAutoConfirm, shouldAutoGenerateSheet, shouldAutoSelectOption, shouldAutoBookShipment,
+      defaultAssignees.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequestProgressionSettings
+  - term: BookingRequestSheet
+    definition: 'Object declared by the contract with fields: requestedAt, requestedBy, requiresManualQuote, manualQuoteCompleted, sheetId, completedAt,
+      validUntil, optionId.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequestSheet
+  - term: BookingRequestCompletion
+    definition: 'Object declared by the contract with fields: requestedAt, requestedBy, shipmentId, completedAt.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequestCompletion
+  - term: BookingRequestFinalization
+    definition: 'Object declared by the contract with fields: finalizedBy, finalizedAt.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequestFinalization
+  - term: BookingRequestConfirmation
+    definition: 'Object declared by the contract with fields: confirmedBy, confirmedAt.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequestConfirmation
+  - term: BookingRequestManualQuote
+    definition: 'Object declared by the contract with fields: manualQuoteValidUntil, manualQuoteRequestId, completedAt.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequestManualQuote
+  - term: BookingRequestDiscarding
+    definition: 'Object declared by the contract with fields: discardedBy, discardedAt, discardedReason.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequestDiscarding
+  - term: BookingRequest
+    definition: 'Object declared by the contract with fields: _version, _id, createdAt, userId, customerId, state, updatedAt, expiresAt, details,
+      customerReference, externalId, priority. (10 more)'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequest
+  - term: BookingRequestState
+    definition: 'Enumeration declared by the contract with values: NEW, SANITY_CHECK_NEEDED, SELECT_RATES, GENERATING_SHEET, AWAITING_MANUAL_QUOTE,
+      SELECT_SCHEDULE, CREATE_SHIPMENT, BOOKING_SHIPMENT, COMPLETED, DISCARDED.'
+    tags:
+    - Enumeration
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/BookingRequestState
+  - term: ListBookingRequestResponse
+    definition: 'Object declared by the contract with fields: data, count.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/ListBookingRequestResponse
+  - term: CreateBookingRequestBodyDetails
+    definition: 'Object declared by the contract with fields: type, mode, cargoReadyDate, deliveryType, origin, destination, pol, pod, incoterm,
+      containers, customs, requiredCustomTypes. (10 more)'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/CreateBookingRequestBodyDetails
+  - term: CreateBookingRequestBody
+    definition: 'Object declared by the contract with fields: expiresAt, customerReference, externalId, details, notes.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/CreateBookingRequestBody
+  - term: CreateBookingRequestResponse
+    definition: 'Object declared by the contract with fields: _version, _id, createdAt, userId, customerId, updatedAt, expiresAt, details, customerReference,
+      externalId, priority, progressionSettings. (10 more)'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/CreateBookingRequestResponse
+  - term: UpdateBookingRequestBody
+    definition: 'Object declared by the contract with fields: type, mode, cargoReadyDate, deliveryType, origin, destination, pol, pod, incoterm,
+      containers, customs, requiredCustomTypes. (10 more)'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/UpdateBookingRequestBody
+  - term: UpdateBookingRequestResponse
+    definition: 'Object declared by the contract with fields: _version, _id, createdAt, userId, customerId, state, updatedAt, expiresAt, details,
+      customerReference, externalId, priority. (10 more)'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/UpdateBookingRequestResponse
+  - term: FinalizeBookingRequestResponse
+    definition: 'Object declared by the contract with fields: _version, _id, createdAt, userId, customerId, updatedAt, expiresAt, details, customerReference,
+      externalId, priority, progressionSettings. (10 more)'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/FinalizeBookingRequestResponse
+  - term: DiscardBookingRequestBody
+    definition: 'Object declared by the contract with fields: discardedReason.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/DiscardBookingRequestBody
+  - term: DiscardBookingRequestResponse
+    definition: 'Object declared by the contract with fields: _version, _id, createdAt, userId, customerId, state, updatedAt, expiresAt, details,
+      customerReference, externalId, priority. (10 more)'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/DiscardBookingRequestResponse
+  - term: CreateCustomerTokenBody
+    definition: 'Object declared by the contract with fields: name.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/CreateCustomerTokenBody
+  - term: Token
+    definition: 'Object declared by the contract with fields: id, name, createdAt, token, lastUsedAt.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/Token
+  - term: GetCustomerTokensResponse
+    definition: 'Object declared by the contract with fields: items, totalItems, page, pageSize.'
+    tags:
+    - Object
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml#/components/schemas/GetCustomerTokensResponse
+  - term: Booking Request
+    definition: 'Resource group in the contract; its operation GET /v1/booking-requests: List booking requests'
+    tags:
+    - Resource Group
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml
+  - term: Subscriptions
+    definition: 'Resource group in the contract; its operation GET /v1/events-api/inbox/{id}: List/Filter/Paginate Inbox Events'
+    tags:
+    - Resource Group
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml
+  - term: Reports
+    definition: 'Resource group in the contract; its operation GET /v1/reports/{templateId}/{reportId}: Download a report'
+    tags:
+    - Resource Group
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml
+  - term: Tokens
+    definition: 'Resource group in the contract; its operation POST /v1/tokens: Create a Token'
+    tags:
+    - Resource Group
+    source: openapi/freighthub-com-forto-platform-api-openapi.yml

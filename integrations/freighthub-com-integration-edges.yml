@@ -1,0 +1,22 @@
+generated: '2026-10-23'
+method: none
+source:
+- https://zapier.com/apps/freighthub-com/integrations
+- https://zapier.com/apps/freighthub/integrations
+- https://zapier.com/apps/forto/integrations
+- https://n8n.io/integrations/freighthub-com/
+- https://n8n.io/integrations/freighthub/
+- https://composio.dev/toolkits/freighthub-com
+- https://monid.ai/tools/freighthub-com
+checked:
+- https://composio.dev/toolkits/freighthub-com
+- https://monid.ai/tools/freighthub-com
+- https://n8n.io/integrations/freighthub-com/
+- https://n8n.io/integrations/freighthub/
+- https://zapier.com/apps/forto/integrations
+- https://zapier.com/apps/freighthub-com/integrations
+- https://zapier.com/apps/freighthub/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []

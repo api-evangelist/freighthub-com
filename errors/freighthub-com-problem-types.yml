@@ -1,0 +1,48 @@
+generated: '2026-10-23'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/freighthub-com-forto-platform-api-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: APIValidationError
+coverage:
+  operations: 25
+  statuses_declared: 5
+problems:
+- status: 400
+  title: Bad Request
+  description: Request is malformed
+  operations: 22
+  media_types:
+  - application/json
+  schema: APIValidationError
+- status: 401
+  title: Unauthorized
+  description: Authorization failed for this request
+  operations: 22
+  media_types:
+  - application/json
+  schema: APIAuthenticationError
+- status: 403
+  title: Forbidden
+  description: Forbidden
+  operations: 22
+  media_types:
+  - application/json
+  schema: APIAuthorizationError
+- status: 404
+  title: Not Found
+  description: Requested resource cannot be found
+  operations: 22
+  media_types:
+  - application/json
+  schema: APINotFoundError
+- status: default
+  title: null
+  description: Default Error
+  operations: 22
+  media_types:
+  - application/json
+  schema: APIError

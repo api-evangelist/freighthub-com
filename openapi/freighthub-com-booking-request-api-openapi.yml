@@ -1,0 +1,1576 @@
+openapi: 3.2.0
+info:
+  title: Forto Platform Booking Request API
+  description: Public API schema
+  version: '1.0'
+  contact:
+    name: Customer Integrations Team
+    url: ''
+    email: ''
+servers:
+- url: https://public-api.forto.io
+  description: Our Sandbox API
+- url: https://public-api.forto.com
+  description: Our Production API
+tags:
+- name: Booking Request
+paths:
+  /v1/booking-requests:
+    get:
+      operationId: listv1
+      parameters:
+      - name: sort
+        required: false
+        in: query
+        description: Sort option
+        schema:
+          type: string
+      - name: size
+        required: false
+        in: query
+        description: Desired amount of entities in the response
+        schema:
+          type: number
+      - name: from
+        required: false
+        in: query
+        description: Amount to skip
+        schema:
+          type: number
+      - name: ids
+        required: false
+        in: query
+        description: Filter by multiple entity IDs
+        schema:
+          type: array
+          items:
+            type: string
+      - name: states
+        required: false
+        in: query
+        description: Filter by multiple states
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingRequestState'
+      - name: opsIds
+        required: false
+        in: query
+        description: Filter by multiple Operation Manager IDs
+        schema:
+          type: array
+          items:
+            type: string
+      - name: userIds
+        required: false
+        in: query
+        description: Filter by multiple userIDs
+        schema:
+          type: array
+          items:
+            type: string
+      - name: incoterms
+        required: false
+        in: query
+        description: Filter by multiple incoterms
+        schema:
+          type: array
+          items:
+            type: string
+      - name: priorities
+        required: false
+        in: query
+        description: Filter by priorities
+        schema:
+          type: array
+          items:
+            type: string
+      - name: externalIds
+        required: false
+        in: query
+        description: Filter by multiple external IDs
+        schema:
+          type: array
+          items:
+            type: string
+      - name: manualQuoteIds
+        required: false
+        in: query
+        description: Filter by multiple manual quote IDs
+        schema:
+          type: array
+          items:
+            type: string
+      - name: customerReferences
+        required: false
+        in: query
+        description: Filter by multiple customer references
+        schema:
+          type: array
+          items:
+            type: string
+      - name: customerReference
+        required: false
+        in: query
+        description: Customer Reference of entities required
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Lists Booking Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBookingRequestResponse'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: List booking requests
+      tags:
+      - Booking Request
+    post:
+      operationId: createv1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBookingRequestBody'
+      responses:
+        '201':
+          description: Created booking request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateBookingRequestResponse'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Create a booking request
+      tags:
+      - Booking Request
+  /v1/booking-requests/{id}:
+    get:
+      operationId: getv1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: ID of the entity
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Returns a Booking Request for a given ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingRequest'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Get a booking request by its ID
+      tags:
+      - Booking Request
+  /v1/booking-requests/{id}/discard:
+    put:
+      operationId: discardv1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: ID of the entity
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DiscardBookingRequestBody'
+      responses:
+        '200':
+          description: Discarded booking request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscardBookingRequestResponse'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Discard a booking request
+      tags:
+      - Booking Request
+  /v1/booking-requests/{id}/finalize:
+    put:
+      operationId: finalizev1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: ID of the entity
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Finalized booking request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FinalizeBookingRequestResponse'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Finalize a booking request
+      tags:
+      - Booking Request
+  /v1/booking-requests/{id}/update-details:
+    put:
+      operationId: updateDetailsv1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: ID of the entity
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBookingRequestBody'
+      responses:
+        '200':
+          description: Booking request with updated details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateBookingRequestResponse'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Update details of a booking request
+      tags:
+      - Booking Request
+components:
+  schemas:
+    FinalizeBookingRequestResponse:
+      type: object
+      properties:
+        _version:
+          type: number
+        _id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        customerId:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        details:
+          $ref: '#/components/schemas/BookingRequestDetails'
+        customerReference:
+          type: string
+        externalId:
+          type: string
+        priority:
+          type: number
+        progressionSettings:
+          $ref: '#/components/schemas/BookingRequestProgressionSettings'
+        notificationSettings:
+          type: object
+        assignees:
+          $ref: '#/components/schemas/BookingRequestAssignees'
+        notes:
+          type: string
+        sheet:
+          $ref: '#/components/schemas/BookingRequestSheet'
+        completion:
+          $ref: '#/components/schemas/BookingRequestCompletion'
+        confirmation:
+          $ref: '#/components/schemas/BookingRequestConfirmation'
+        manualQuote:
+          $ref: '#/components/schemas/BookingRequestManualQuote'
+        discarding:
+          $ref: '#/components/schemas/BookingRequestDiscarding'
+        state:
+          type: string
+          enum:
+          - SANITY_CHECK_NEEDED
+          - SELECT_RATES
+        finalization:
+          $ref: '#/components/schemas/BookingRequestFinalization'
+      required:
+      - _id
+      - createdAt
+      - userId
+      - customerId
+      - updatedAt
+      - details
+      - priority
+      - progressionSettings
+      - notificationSettings
+      - notes
+      - state
+      - finalization
+    CreateBookingRequestBodyDetails:
+      type: object
+      properties:
+        type:
+          enum:
+          - fcl
+          - lcl
+          type: string
+        mode:
+          enum:
+          - sea
+          - air
+          - rail
+          - seaAir
+          type: string
+        cargoReadyDate:
+          type: string
+          format: date-time
+        deliveryType:
+          enum:
+          - port-port
+          - door-door
+          - port-door
+          type: string
+        origin:
+          type: string
+          description: Required when delivery type is door-door
+        destination:
+          type: string
+          description: Required when delivery type is port-door or door-door
+        pol:
+          type: string
+          description: Required when delivery type is port-port or port-door
+          example: DEHAM
+        pod:
+          type: string
+          description: Required when delivery type is port-port
+          example: VNSGN
+        incoterm:
+          type: string
+          enum:
+          - EXW
+          - FCA_LW
+          - FCA_T
+          - FAS
+          - FOB
+          - CFR
+          - CIF
+          - CPT
+          - CIP
+          - DPU
+          - DAP
+          - DDP
+        containers:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingRequestContainer'
+        customs:
+          type: boolean
+        requiredCustomTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - standard
+            - fiscal
+            - t1
+            - t1_only
+            - t2
+            - t2_only
+        hsCodesCount:
+          type: number
+        specialEquipment:
+          type: boolean
+        dangerousGoods:
+          type: boolean
+        bookingParty:
+          enum:
+          - buyer
+          - seller
+          type: string
+        consigneeInformation:
+          $ref: '#/components/schemas/BookingRequestParty'
+        shipperInformation:
+          $ref: '#/components/schemas/BookingRequestParty'
+        pickupInformation:
+          $ref: '#/components/schemas/BookingRequestParty'
+        deliveryInformation:
+          $ref: '#/components/schemas/BookingRequestParty'
+        tags:
+          description: User-defined array of tags, in key-value format, which will be propagated to any shipment created from the booking request
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerTag'
+        isStackable:
+          type: boolean
+          description: Cargo items can only be stacked for LCL shipments
+      required:
+      - type
+      - mode
+      - cargoReadyDate
+      - deliveryType
+      - incoterm
+      - containers
+      - customs
+      - requiredCustomTypes
+      - hsCodesCount
+      - specialEquipment
+      - dangerousGoods
+      - bookingParty
+    UpdateBookingRequestBody:
+      type: object
+      properties:
+        type:
+          enum:
+          - fcl
+          - lcl
+          type: string
+        mode:
+          enum:
+          - sea
+          - air
+          - rail
+          - seaAir
+          type: string
+        cargoReadyDate:
+          type: string
+          format: date-time
+        deliveryType:
+          enum:
+          - port-port
+          - door-door
+          - port-door
+          type: string
+        origin:
+          type: string
+          description: Required when delivery type is door-door
+        destination:
+          type: string
+          description: Required when delivery type is port-door or door-door
+        pol:
+          type: string
+          description: Required when delivery type is port-port or port-door
+          example: DEHAM
+        pod:
+          type: string
+          description: Required when delivery type is port-port
+          example: VNSGN
+        incoterm:
+          type: string
+          enum:
+          - EXW
+          - FCA_LW
+          - FCA_T
+          - FAS
+          - FOB
+          - CFR
+          - CIF
+          - CPT
+          - CIP
+          - DPU
+          - DAP
+          - DDP
+        containers:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingRequestContainer'
+        customs:
+          type: boolean
+        requiredCustomTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - standard
+            - fiscal
+            - t1
+            - t1_only
+            - t2
+            - t2_only
+        hsCodesCount:
+          type: number
+        specialEquipment:
+          type: boolean
+        dangerousGoods:
+          type: boolean
+        bookingParty:
+          enum:
+          - buyer
+          - seller
+          type: string
+        consigneeInformation:
+          $ref: '#/components/schemas/BookingRequestParty'
+        shipperInformation:
+          $ref: '#/components/schemas/BookingRequestParty'
+        pickupInformation:
+          $ref: '#/components/schemas/BookingRequestParty'
+        deliveryInformation:
+          $ref: '#/components/schemas/BookingRequestParty'
+        tags:
+          description: User-defined array of tags, in key-value format, which will be propagated to any shipment created from the booking request
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerTag'
+        isStackable:
+          type: boolean
+          description: Cargo items can only be stacked for LCL shipments
+      required:
+      - type
+      - mode
+      - cargoReadyDate
+      - deliveryType
+      - incoterm
+      - containers
+      - customs
+      - requiredCustomTypes
+      - hsCodesCount
+      - specialEquipment
+      - dangerousGoods
+      - bookingParty
+    BookingRequestManualQuote:
+      type: object
+      properties:
+        manualQuoteValidUntil:
+          type: string
+          format: date-time
+        manualQuoteRequestId:
+          type: string
+        completedAt:
+          type: string
+          format: date-time
+      required:
+      - manualQuoteRequestId
+      - completedAt
+    APINotFoundError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: NotFoundException
+          description: Name of NotFoundException
+          enum:
+          - NotFoundException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    UpdateBookingRequestResponse:
+      type: object
+      properties:
+        _version:
+          type: number
+        _id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        customerId:
+          type: string
+        state:
+          enum:
+          - NEW
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        details:
+          $ref: '#/components/schemas/BookingRequestDetails'
+        customerReference:
+          type: string
+        externalId:
+          type: string
+        priority:
+          type: number
+        progressionSettings:
+          $ref: '#/components/schemas/BookingRequestProgressionSettings'
+        notificationSettings:
+          type: object
+        assignees:
+          $ref: '#/components/schemas/BookingRequestAssignees'
+        notes:
+          type: string
+        sheet:
+          $ref: '#/components/schemas/BookingRequestSheet'
+        completion:
+          $ref: '#/components/schemas/BookingRequestCompletion'
+        finalization:
+          $ref: '#/components/schemas/BookingRequestFinalization'
+        confirmation:
+          $ref: '#/components/schemas/BookingRequestConfirmation'
+        manualQuote:
+          $ref: '#/components/schemas/BookingRequestManualQuote'
+        discarding:
+          $ref: '#/components/schemas/BookingRequestDiscarding'
+      required:
+      - _id
+      - createdAt
+      - userId
+      - customerId
+      - state
+      - updatedAt
+      - details
+      - priority
+      - progressionSettings
+      - notificationSettings
+      - notes
+    BookingRequestCompletion:
+      type: object
+      properties:
+        requestedAt:
+          type: string
+          format: date-time
+        requestedBy:
+          type: string
+        shipmentId:
+          type: string
+        completedAt:
+          type: string
+          format: date-time
+      required:
+      - requestedAt
+      - requestedBy
+      - shipmentId
+      - completedAt
+    CreateBookingRequestBody:
+      type: object
+      properties:
+        expiresAt:
+          type: string
+          format: date-time
+        customerReference:
+          type: string
+        externalId:
+          type: string
+        details:
+          $ref: '#/components/schemas/CreateBookingRequestBodyDetails'
+        notes:
+          type: string
+      required:
+      - details
+    APIAuthenticationError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: AuthenticationException
+          description: Name of AuthenticationException
+          enum:
+          - AuthenticationException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    DiscardBookingRequestResponse:
+      type: object
+      properties:
+        _version:
+          type: number
+        _id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        customerId:
+          type: string
+        state:
+          enum:
+          - DISCARDED
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        details:
+          $ref: '#/components/schemas/BookingRequestDetails'
+        customerReference:
+          type: string
+        externalId:
+          type: string
+        priority:
+          type: number
+        progressionSettings:
+          $ref: '#/components/schemas/BookingRequestProgressionSettings'
+        notificationSettings:
+          type: object
+        assignees:
+          $ref: '#/components/schemas/BookingRequestAssignees'
+        notes:
+          type: string
+        sheet:
+          $ref: '#/components/schemas/BookingRequestSheet'
+        completion:
+          $ref: '#/components/schemas/BookingRequestCompletion'
+        finalization:
+          $ref: '#/components/schemas/BookingRequestFinalization'
+        confirmation:
+          $ref: '#/components/schemas/BookingRequestConfirmation'
+        manualQuote:
+          $ref: '#/components/schemas/BookingRequestManualQuote'
+        discarding:
+          $ref: '#/components/schemas/BookingRequestDiscarding'
+      required:
+      - _id
+      - createdAt
+      - userId
+      - customerId
+      - state
+      - updatedAt
+      - details
+      - priority
+      - progressionSettings
+      - notificationSettings
+      - notes
+      - discarding
+    BookingRequestDiscarding:
+      type: object
+      properties:
+        discardedBy:
+          type: string
+        discardedAt:
+          type: string
+          format: date-time
+        discardedReason:
+          type:
+          - string
+          - 'null'
+      required:
+      - discardedBy
+      - discardedAt
+    BookingRequestProgressionSettings:
+      type: object
+      properties:
+        shouldAutoConfirm:
+          type: boolean
+        shouldAutoGenerateSheet:
+          type: boolean
+        shouldAutoSelectOption:
+          type: boolean
+        shouldAutoBookShipment:
+          type: boolean
+        defaultAssignees:
+          $ref: '#/components/schemas/BookingRequestAssignees'
+      required:
+      - shouldAutoConfirm
+      - shouldAutoGenerateSheet
+      - shouldAutoSelectOption
+      - shouldAutoBookShipment
+    APIAuthorizationError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: AuthorizationException
+          description: Name of AuthorizationException
+          enum:
+          - AuthorizationException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    ListBookingRequestResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingRequest'
+        count:
+          type: number
+      required:
+      - data
+      - count
+    BookingRequestAssignees:
+      type: object
+      properties:
+        opsId:
+          type: string
+        salesId:
+          type: string
+      required:
+      - opsId
+    BookingRequestConfirmation:
+      type: object
+      properties:
+        confirmedBy:
+          type: string
+        confirmedAt:
+          type: string
+          format: date-time
+      required:
+      - confirmedBy
+      - confirmedAt
+    BookingRequest:
+      type: object
+      properties:
+        _version:
+          type: number
+        _id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        customerId:
+          type: string
+        state:
+          enum:
+          - NEW
+          - SANITY_CHECK_NEEDED
+          - SELECT_RATES
+          - GENERATING_SHEET
+          - AWAITING_MANUAL_QUOTE
+          - SELECT_SCHEDULE
+          - CREATE_SHIPMENT
+          - BOOKING_SHIPMENT
+          - COMPLETED
+          - DISCARDED
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        details:
+          $ref: '#/components/schemas/BookingRequestDetails'
+        customerReference:
+          type: string
+        externalId:
+          type: string
+        priority:
+          type: number
+        progressionSettings:
+          $ref: '#/components/schemas/BookingRequestProgressionSettings'
+        notificationSettings:
+          type: object
+        assignees:
+          $ref: '#/components/schemas/BookingRequestAssignees'
+        notes:
+          type: string
+        sheet:
+          $ref: '#/components/schemas/BookingRequestSheet'
+        completion:
+          $ref: '#/components/schemas/BookingRequestCompletion'
+        finalization:
+          $ref: '#/components/schemas/BookingRequestFinalization'
+        confirmation:
+          $ref: '#/components/schemas/BookingRequestConfirmation'
+        manualQuote:
+          $ref: '#/components/schemas/BookingRequestManualQuote'
+        discarding:
+          $ref: '#/components/schemas/BookingRequestDiscarding'
+      required:
+      - _id
+      - createdAt
+      - userId
+      - customerId
+      - state
+      - updatedAt
+      - details
+      - priority
+      - progressionSettings
+      - notificationSettings
+      - notes
+    BookingRequestAddressDetails:
+      type: object
+      properties:
+        googlePlaceId:
+          type: string
+        formattedAddress:
+          type: string
+        countryCode:
+          type: string
+        city:
+          type: string
+        location:
+          $ref: '#/components/schemas/BookingRequestLocation'
+        cityCode:
+          type: string
+        postalCode:
+          type: string
+        plusCompoundCode:
+          type: string
+        plusGlobalCode:
+          type: string
+        country:
+          type: string
+        state:
+          type: string
+        district:
+          type: string
+        street:
+          type: string
+        streetNumber:
+          type: string
+      required:
+      - googlePlaceId
+      - formattedAddress
+      - countryCode
+      - city
+      - location
+    DiscardBookingRequestBody:
+      type: object
+      properties:
+        discardedReason:
+          type: string
+    BookingRequestDetails:
+      type: object
+      properties:
+        type:
+          enum:
+          - fcl
+          - lcl
+          type: string
+        mode:
+          enum:
+          - sea
+          - air
+          - rail
+          - seaAir
+          type: string
+        cargoReadyDate:
+          type: string
+          format: date-time
+        deliveryType:
+          enum:
+          - port-port
+          - door-door
+          - port-door
+          type: string
+        origin:
+          type: string
+          description: Required when delivery type is door-door
+        destination:
+          type: string
+          description: Required when delivery type is port-door or door-door
+        pol:
+          type: string
+          description: Required when delivery type is port-port or port-door
+          example: DEHAM
+        pod:
+          type: string
+          description: Required when delivery type is port-port
+          example: VNSGN
+        originObject:
+          $ref: '#/components/schemas/BookingRequestAddressDetails'
+        destinationObject:
+          $ref: '#/components/schemas/BookingRequestAddressDetails'
+        incoterm:
+          type: string
+          enum:
+          - EXW
+          - FCA_LW
+          - FCA_T
+          - FAS
+          - FOB
+          - CFR
+          - CIF
+          - CPT
+          - CIP
+          - DPU
+          - DAP
+          - DDP
+        containers:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingRequestContainer'
+        customs:
+          type: boolean
+        requiredCustomTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - standard
+            - fiscal
+            - t1
+            - t1_only
+            - t2
+            - t2_only
+        hsCodesCount:
+          type: number
+        specialEquipment:
+          type: boolean
+        dangerousGoods:
+          type: boolean
+        bookingParty:
+          enum:
+          - buyer
+          - seller
+          type: string
+        consigneeInformation:
+          $ref: '#/components/schemas/BookingRequestParty'
+        shipperInformation:
+          $ref: '#/components/schemas/BookingRequestParty'
+        pickupInformation:
+          $ref: '#/components/schemas/BookingRequestParty'
+        deliveryInformation:
+          $ref: '#/components/schemas/BookingRequestParty'
+        emissions:
+          type: number
+          description: Indication of emissions for the shipment that would be created by the booking request (KgCO2e)
+        tags:
+          description: User-defined array of tags, in key-value format, which will be propagated to any shipment created from the booking request
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerTag'
+        isStackable:
+          type: boolean
+          description: Cargo items can only be stacked for LCL shipments
+      required:
+      - type
+      - mode
+      - cargoReadyDate
+      - deliveryType
+      - incoterm
+      - containers
+      - customs
+      - requiredCustomTypes
+      - hsCodesCount
+      - specialEquipment
+      - dangerousGoods
+      - bookingParty
+    BookingRequestState:
+      type: string
+      enum:
+      - NEW
+      - SANITY_CHECK_NEEDED
+      - SELECT_RATES
+      - GENERATING_SHEET
+      - AWAITING_MANUAL_QUOTE
+      - SELECT_SCHEDULE
+      - CREATE_SHIPMENT
+      - BOOKING_SHIPMENT
+      - COMPLETED
+      - DISCARDED
+    CreateBookingRequestResponse:
+      type: object
+      properties:
+        _version:
+          type: number
+        _id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        customerId:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+        details:
+          $ref: '#/components/schemas/BookingRequestDetails'
+        customerReference:
+          type: string
+        externalId:
+          type: string
+        priority:
+          type: number
+        progressionSettings:
+          $ref: '#/components/schemas/BookingRequestProgressionSettings'
+        notificationSettings:
+          type: object
+        assignees:
+          $ref: '#/components/schemas/BookingRequestAssignees'
+        notes:
+          type: string
+        sheet:
+          $ref: '#/components/schemas/BookingRequestSheet'
+        completion:
+          $ref: '#/components/schemas/BookingRequestCompletion'
+        finalization:
+          $ref: '#/components/schemas/BookingRequestFinalization'
+        confirmation:
+          $ref: '#/components/schemas/BookingRequestConfirmation'
+        manualQuote:
+          $ref: '#/components/schemas/BookingRequestManualQuote'
+        discarding:
+          $ref: '#/components/schemas/BookingRequestDiscarding'
+        state:
+          type: string
+          enum:
+          - NEW
+      required:
+      - _id
+      - createdAt
+      - userId
+      - customerId
+      - updatedAt
+      - details
+      - priority
+      - progressionSettings
+      - notificationSettings
+      - notes
+      - state
+    APIValidationError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: ValidationException
+          description: Name of ValidationException
+          enum:
+          - ValidationException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+      - details
+    BookingRequestParty:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        externalId:
+          type: string
+    ErrorDetails:
+      type: object
+      properties:
+        field:
+          type: string
+          description: Field causing the issue
+        value:
+          type: object
+          description: Value of the field causing the issue
+        location:
+          type: string
+          description: Location of the field causing the issue
+          enum:
+          - path
+          - body
+          - query
+        issue:
+          type: string
+          description: The reason for the error
+      required:
+      - field
+      - issue
+    BookingRequestFinalization:
+      type: object
+      properties:
+        finalizedBy:
+          type: string
+        finalizedAt:
+          type: string
+          format: date-time
+      required:
+      - finalizedBy
+      - finalizedAt
+    BookingRequestSheet:
+      type: object
+      properties:
+        requestedAt:
+          type: string
+          format: date-time
+        requestedBy:
+          type: string
+        requiresManualQuote:
+          type: boolean
+        manualQuoteCompleted:
+          type: boolean
+        sheetId:
+          type: string
+        completedAt:
+          type: string
+          format: date-time
+        validUntil:
+          type: string
+          format: date-time
+        optionId:
+          type: string
+      required:
+      - requestedAt
+      - requestedBy
+      - sheetId
+      - completedAt
+      - validUntil
+      - optionId
+    CustomerTag:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      required:
+      - key
+      - value
+    APIError:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Human readable, unique name of the error.
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    BookingRequestContainer:
+      type: object
+      properties:
+        commodityType:
+          type: string
+        customerReference:
+          type: string
+        externalId:
+          type: string
+        quantity:
+          type: number
+        containerType:
+          type: string
+          enum:
+          - 22GP
+          - 42GP
+          - 45GP
+          - null
+          - LCL
+        width:
+          type: number
+          description: Required when its an LCL Container
+        height:
+          type: number
+          description: Required when its an LCL Container
+        length:
+          type: number
+          description: Required when its an LCL Container
+        weight:
+          type: number
+          description: Required when its an LCL Container
+      required:
+      - quantity
+      - containerType
+    BookingRequestLocation:
+      type: object
+      properties:
+        lat:
+          type: number
+        lng:
+          type: number
+      required:
+      - lat
+      - lng
+  securitySchemes:
+    Authorization:
+      scheme: bearer
+      bearerFormat: Forto API Key Format
+      type: http
+      description: API Key
+x-provenance:
+  method: searched
+  source: https://developers.forto.com/reference
+  harvested: '2026-10-23'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.forto.com/reference/createsubscriptionv1.md
+  - https://developers.forto.com/reference/createtokenv1.md
+  - https://developers.forto.com/reference/createv1.md
+  - https://developers.forto.com/reference/deletesubscriptionv1.md
+  - https://developers.forto.com/reference/deletetokenv1.md
+  - https://developers.forto.com/reference/discardv1.md
+  - https://developers.forto.com/reference/downloadreportv1.md
+  - https://developers.forto.com/reference/finalizev1.md
+  - https://developers.forto.com/reference/getinboxv1.md
+  - https://developers.forto.com/reference/getshipmentdocumentsv1.md
+  - https://developers.forto.com/reference/getshipmentinvoicesv1.md
+  - https://developers.forto.com/reference/getshipmentsv1.md
+  - https://developers.forto.com/reference/getshipmenttransportplan0.md
+  - https://developers.forto.com/reference/getshipmenttransportplan1v1.md
+  - https://developers.forto.com/reference/getshipmenttransportplaneventsforcontainerv2.md
+  - https://developers.forto.com/reference/getshipmenttransportplaneventsv2.md
+  - https://developers.forto.com/reference/getshipmenttransportplanforcontainerv2.md
+  - https://developers.forto.com/reference/getshipmenttransportplanv2-1.md
+  - https://developers.forto.com/reference/getshipmentv1.md
+  - https://developers.forto.com/reference/gettokensv1.md
+  - https://developers.forto.com/reference/getv1.md
+  - https://developers.forto.com/reference/listsubscriptionsv1.md
+  - https://developers.forto.com/reference/listv1.md
+  - https://developers.forto.com/reference/updatedetailsv1.md
+  - https://developers.forto.com/reference/uploadshipmentdocumentv1.md
+  merge:
+    pages: 25
+    deduped: 256
+    conflicts_kept_first: 0

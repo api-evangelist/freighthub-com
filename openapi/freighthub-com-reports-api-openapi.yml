@@ -1,0 +1,279 @@
+openapi: 3.2.0
+info:
+  title: Forto Platform Reports API
+  description: Public API schema
+  version: '1.0'
+  contact:
+    name: Customer Integrations Team
+    url: ''
+    email: ''
+servers:
+- url: https://public-api.forto.io
+  description: Our Sandbox API
+- url: https://public-api.forto.com
+  description: Our Production API
+tags:
+- name: Reports
+paths:
+  /v1/reports/{templateId}/{reportId}:
+    get:
+      operationId: downloadReportv1
+      parameters:
+      - name: templateId
+        required: true
+        in: path
+        description: Template ID
+        schema:
+          type: string
+      - name: reportId
+        required: true
+        in: path
+        description: 'Report ID '
+        schema:
+          type: string
+      responses:
+        '200':
+          description: File stream response
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Download a report
+      tags:
+      - Reports
+components:
+  schemas:
+    APINotFoundError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: NotFoundException
+          description: Name of NotFoundException
+          enum:
+          - NotFoundException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    ErrorDetails:
+      type: object
+      properties:
+        field:
+          type: string
+          description: Field causing the issue
+        value:
+          type: object
+          description: Value of the field causing the issue
+        location:
+          type: string
+          description: Location of the field causing the issue
+          enum:
+          - path
+          - body
+          - query
+        issue:
+          type: string
+          description: The reason for the error
+      required:
+      - field
+      - issue
+    APIAuthenticationError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: AuthenticationException
+          description: Name of AuthenticationException
+          enum:
+          - AuthenticationException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    APIError:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Human readable, unique name of the error.
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    APIAuthorizationError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: AuthorizationException
+          description: Name of AuthorizationException
+          enum:
+          - AuthorizationException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    APIValidationError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: ValidationException
+          description: Name of ValidationException
+          enum:
+          - ValidationException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+      - details
+  securitySchemes:
+    Authorization:
+      scheme: bearer
+      bearerFormat: Forto API Key Format
+      type: http
+      description: API Key
+x-provenance:
+  method: searched
+  source: https://developers.forto.com/reference
+  harvested: '2026-10-23'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.forto.com/reference/createsubscriptionv1.md
+  - https://developers.forto.com/reference/createtokenv1.md
+  - https://developers.forto.com/reference/createv1.md
+  - https://developers.forto.com/reference/deletesubscriptionv1.md
+  - https://developers.forto.com/reference/deletetokenv1.md
+  - https://developers.forto.com/reference/discardv1.md
+  - https://developers.forto.com/reference/downloadreportv1.md
+  - https://developers.forto.com/reference/finalizev1.md
+  - https://developers.forto.com/reference/getinboxv1.md
+  - https://developers.forto.com/reference/getshipmentdocumentsv1.md
+  - https://developers.forto.com/reference/getshipmentinvoicesv1.md
+  - https://developers.forto.com/reference/getshipmentsv1.md
+  - https://developers.forto.com/reference/getshipmenttransportplan0.md
+  - https://developers.forto.com/reference/getshipmenttransportplan1v1.md
+  - https://developers.forto.com/reference/getshipmenttransportplaneventsforcontainerv2.md
+  - https://developers.forto.com/reference/getshipmenttransportplaneventsv2.md
+  - https://developers.forto.com/reference/getshipmenttransportplanforcontainerv2.md
+  - https://developers.forto.com/reference/getshipmenttransportplanv2-1.md
+  - https://developers.forto.com/reference/getshipmentv1.md
+  - https://developers.forto.com/reference/gettokensv1.md
+  - https://developers.forto.com/reference/getv1.md
+  - https://developers.forto.com/reference/listsubscriptionsv1.md
+  - https://developers.forto.com/reference/listv1.md
+  - https://developers.forto.com/reference/updatedetailsv1.md
+  - https://developers.forto.com/reference/uploadshipmentdocumentv1.md
+  merge:
+    pages: 25
+    deduped: 256
+    conflicts_kept_first: 0

@@ -1,0 +1,2155 @@
+openapi: 3.2.0
+info:
+  title: Forto Platform Shipment API
+  description: Public API schema
+  version: '1.0'
+  contact:
+    name: Customer Integrations Team
+    url: ''
+    email: ''
+servers:
+- url: https://public-api.forto.io
+  description: Our Sandbox API
+- url: https://public-api.forto.com
+  description: Our Production API
+tags:
+- name: Shipment
+paths:
+  /shipments/{shipmentId}/transportPlan:
+    get:
+      deprecated: true
+      operationId: getShipmentTransportPlan[0]
+      parameters:
+      - name: shipmentId
+        required: true
+        in: path
+        description: ID of the Shipment
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Shipment Transport Plan Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentTransportPlanV1'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Get Transport Plan
+      tags:
+      - Shipment
+  /v1/shipments:
+    get:
+      operationId: getShipmentsv1
+      parameters:
+      - name: _id
+        required: false
+        in: query
+        description: ID of the shipment
+        schema:
+          type: string
+      - name: customerReference
+        required: false
+        in: query
+        description: Customer Reference of the shipment. Query is case insensitive and partial matches are supported.
+        schema:
+          type: string
+      - name: states
+        required: false
+        in: query
+        description: Shipment States
+        schema:
+          minItems: 1
+          type: array
+          items:
+            type: string
+            enum:
+            - new
+            - active
+            - completed
+            - canceled
+            - closed
+      - name: pageSize
+        required: false
+        in: query
+        description: Desired amount of entities in the response
+        schema:
+          minimum: 1
+          maximum: 50
+          default: 50
+          type: number
+      - name: page
+        required: false
+        in: query
+        description: Desired page of entities
+        schema:
+          minimum: 1
+          default: 1
+          type: number
+      responses:
+        '200':
+          description: Paginated response of Shipments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListShipmentsResponse'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: List/Filter/Paginate Shipments
+      tags:
+      - Shipment
+  /v1/shipments/{shipmentId}:
+    get:
+      operationId: getShipmentv1
+      parameters:
+      - name: shipmentId
+        required: true
+        in: path
+        description: ID of the Shipment
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Shipment Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Get Shipment
+      tags:
+      - Shipment
+  /v1/shipments/{shipmentId}/documents:
+    get:
+      operationId: getShipmentDocumentsv1
+      parameters:
+      - name: shipmentId
+        required: true
+        in: path
+        description: ID of the Shipment
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Shipment Documents Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentDocuments'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Get Documents of a Shipment
+      tags:
+      - Shipment
+  /v1/shipments/{shipmentId}/documents/{role}/upload:
+    post:
+      operationId: uploadShipmentDocumentv1
+      parameters:
+      - name: role
+        required: true
+        in: path
+        description: Document role
+        schema:
+          type: string
+      - name: shipmentId
+        required: true
+        in: path
+        description: ID of the Shipment
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: Document to upload
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FileUpload'
+      responses:
+        '204':
+          description: ''
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Upload a Document for a Shipment
+      tags:
+      - Shipment
+  /v1/shipments/{shipmentId}/invoices:
+    get:
+      operationId: getShipmentInvoicesv1
+      parameters:
+      - name: shipmentId
+        required: true
+        in: path
+        description: ID of the Shipment
+        schema:
+          type: string
+      - name: startDate
+        required: false
+        in: query
+        description: earliest invoice date (YYYY-MM-DD)
+        schema:
+          format: date
+          type: string
+      - name: endDate
+        required: false
+        in: query
+        description: latest invoice date (YYYY-MM-DD)
+        schema:
+          format: date
+          type: string
+      responses:
+        '200':
+          description: Shipment Invoices Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentInvoices'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Get Invoices of a Shipment
+      tags:
+      - Shipment
+  /v1/shipments/{shipmentId}/transportPlan:
+    get:
+      deprecated: true
+      operationId: getShipmentTransportPlan[1]v1
+      parameters:
+      - name: shipmentId
+        required: true
+        in: path
+        description: ID of the Shipment
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Shipment Transport Plan Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentTransportPlanV1'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Get Transport Plan
+      tags:
+      - Shipment
+  /v2/shipments/{shipmentId}/transportPlan:
+    get:
+      operationId: getShipmentTransportPlanv2
+      parameters:
+      - name: shipmentId
+        required: true
+        in: path
+        description: ID of the Shipment
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Shipment Transport Plan Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentTransportPlanV2'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Get Transport Plan
+      tags:
+      - Shipment
+  /v2/shipments/{shipmentId}/transportPlan/events:
+    get:
+      operationId: getShipmentTransportPlanEventsv2
+      parameters:
+      - name: shipmentId
+        required: true
+        in: path
+        description: ID of the Shipment
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Shipment Transport Plan Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentTransportPlanEventsV2'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Get Transport Plan Events
+      tags:
+      - Shipment
+  /v2/shipments/{shipmentId}/transportPlan/{referenceNumber}:
+    get:
+      operationId: getShipmentTransportPlanForContainerv2
+      parameters:
+      - name: shipmentId
+        required: true
+        in: path
+        description: ID of the Shipment
+        schema:
+          type: string
+      - name: referenceNumber
+        required: true
+        in: path
+        description: Container Reference Number
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Shipment Transport Plan Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentTransportPlanV2'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Get Transport Plan of a container
+      tags:
+      - Shipment
+  /v2/shipments/{shipmentId}/transportPlan/{referenceNumber}/events:
+    get:
+      operationId: getShipmentTransportPlanEventsForContainerv2
+      parameters:
+      - name: shipmentId
+        required: true
+        in: path
+        description: ID of the Shipment
+        schema:
+          type: string
+      - name: referenceNumber
+        required: true
+        in: path
+        description: Container Reference Number
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Shipment Transport Plan Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentTransportPlanEventsV2'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Get Transport Plan Events of a container
+      tags:
+      - Shipment
+components:
+  schemas:
+    ShipmentDocuments:
+      type: object
+      properties:
+        shipmentId:
+          type: string
+          description: ID of the shipment
+        customerReference:
+          type:
+          - string
+          - 'null'
+          description: Reference given to the shipment by the customer
+        documents:
+          description: Documents of the shipment
+          type: array
+          items:
+            $ref: '#/components/schemas/ShipmentDocument'
+      required:
+      - shipmentId
+      - customerReference
+      - documents
+    TransportPlanSegmentAddressDepot:
+      type: object
+      properties:
+        fullString:
+          type: string
+          description: The full address in string format
+        streetNumber:
+          type: string
+          description: Street number
+        street:
+          type: string
+          description: Street
+        district:
+          type: string
+          description: District
+        city:
+          type: string
+          description: City
+        state:
+          type: string
+          description: State
+        country:
+          type: string
+          description: Country
+        countryCode:
+          type: string
+          description: Country code
+        postalCode:
+          type: string
+          description: Postal code
+        type:
+          type: string
+          description: Depot
+        name:
+          type: string
+          description: Name of the depot
+      required:
+      - fullString
+      - streetNumber
+      - street
+      - district
+      - city
+      - state
+      - country
+      - countryCode
+      - postalCode
+      - type
+    ShipmentInvoice:
+      type: object
+      properties:
+        invoiceNumber:
+          type: string
+        invoiceType:
+          enum:
+          - creditNote
+          - freight
+          - customs
+          - transport
+          - additionalCharges
+          type: string
+        status:
+          enum:
+          - Cancelled
+          - Outstanding
+          - Overdue
+          - Paid
+          - Cleared
+          type: string
+        lineItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShipmentInvoiceLineItem'
+        issueDate:
+          type: string
+          format: date-time
+        netAmount:
+          $ref: '#/components/schemas/ShipmentInvoiceMoney'
+        grossAmount:
+          $ref: '#/components/schemas/ShipmentInvoiceMoney'
+        vatAmount:
+          $ref: '#/components/schemas/ShipmentInvoiceMoney'
+        link:
+          type: string
+          description: Download link for the document
+        linkValidUntil:
+          type: string
+          description: Time that this download link is valid for downloading. Requesting again will generate another download link.
+          format: date-time
+        dueDate:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Only defined if invoice is not paid
+        dueAmount:
+          description: Only defined if invoice is not paid
+          allOf:
+          - $ref: '#/components/schemas/ShipmentInvoiceMoney'
+      required:
+      - invoiceNumber
+      - invoiceType
+      - status
+      - lineItems
+      - issueDate
+      - netAmount
+      - grossAmount
+      - vatAmount
+      - link
+      - linkValidUntil
+    ShipmentInvoices:
+      type: object
+      properties:
+        shipmentId:
+          type: string
+          description: ID of the shipment
+        customerReference:
+          type:
+          - string
+          - 'null'
+          description: Reference given to the shipment by the customer
+        invoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShipmentInvoice'
+      required:
+      - shipmentId
+      - customerReference
+      - invoices
+    TransportPlanV1:
+      type: object
+      properties:
+        cargoReady:
+          description: Status of cargo ready milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        departure:
+          description: Status of departure milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        arrival:
+          description: Status of arrival milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        pickup:
+          description: Status of pickup milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        delivery:
+          description: Status of delivery milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerGateIn:
+          description: Status of container gate in milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerGateOut:
+          description: Status of container gate out milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentArrival:
+          description: Status of transshipment port arrival milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentDeparture:
+          description: Status of transshipment port departure milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentArrival2:
+          description: Status of second transshipment port arrival milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentDeparture2:
+          description: Status of second transshipment port departure milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentArrival3:
+          description: Status of third transshipment port arrival milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentDeparture3:
+          description: Status of third transshipment port departure milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentArrival4:
+          description: Status of fourth transshipment port arrival milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentDeparture4:
+          description: Status of fourth transshipment port departure milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerEmptyPickup:
+          description: Status of container empty pickup milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerEmptyReturn:
+          description: Status of container empty return milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerDischargedDestination:
+          description: Status of container discharge at destination milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        customsStopOrigin:
+          description: Status of customs stop at origin milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        customsStopDestination:
+          description: Status of customs stop at destination milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerDischargedTransshipment1:
+          description: Status of container discharge on first transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerDischargedTransshipment2:
+          description: Status of container discharge on second transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerDischargedTransshipment3:
+          description: Status of container discharge on third transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerDischargedTransshipment4:
+          description: Status of container discharge on forth transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerLoadedTransshipment1:
+          description: Status of container load on first transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerLoadedTransshipment2:
+          description: Status of container load on second transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerLoadedTransshipment3:
+          description: Status of container load on third transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerLoadedTransshipment4:
+          description: Status of container load on forth transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportArrival:
+          description: Status of arrival to first transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportArrival2:
+          description: Status of arrival to second transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportArrival3:
+          description: Status of arrival to third transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportArrival4:
+          description: Status of arrival to fourth transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportDeparture:
+          description: Status of departure from first transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportDeparture2:
+          description: Status of departure from second transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportDeparture3:
+          description: Status of departure from third transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportDeparture4:
+          description: Status of departure from fourth transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerGateInMultimodalTerminalOrigin:
+          description: Status of container gate in from origin multimodal terminal milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerGateOutMultimodalTerminalOrigin:
+          description: Status of container gate out from origin multimodal terminal milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerGateInMultimodalTerminalDestination:
+          description: Status of container gate in from destination multimodal terminal milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerGateOutMultimodalTerminalDestination:
+          description: Status of container gate out from destination multimodal terminal milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerDepartureAtShipper:
+          description: Status of departure at shipper milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        verifiedGrossMarginStop:
+          description: Status of verified gross margin stop milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        departureFromPointOfReceipt:
+          description: Status of departure from point of receipt milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerLoadingOrigin:
+          description: Status of container origin loading milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerEmptyDeparture:
+          description: Status of container empty departure milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerDepartureDelivery:
+          description: Status of departure from container delivery milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        arrivalPartner:
+          description: Status of partner arrival milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        departurePartner:
+          description: Status of partner departure milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        arrivalOrigin:
+          description: Status of origin arrival milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        receivedFromFlight:
+          description: Status of received from flight milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerNumber:
+          type: string
+          description: Physical Container Number
+        customerReference:
+          type: string
+          description: Reference for the customer
+        tags:
+          description: User-defined array of tags, in key-value format
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerTag'
+        trackableId:
+          type: string
+          description: Trackable ID of this container for correlation purposes
+        preCarriageSegments:
+          description: Pre Carriage segments
+          type: array
+          items:
+            $ref: '#/components/schemas/TransportPlanSegment'
+        segments:
+          description: Main Carriage segments
+          type: array
+          items:
+            $ref: '#/components/schemas/TransportPlanSegment'
+        onCarriageSegments:
+          description: On Carriage segments
+          type: array
+          items:
+            $ref: '#/components/schemas/TransportPlanSegment'
+        containerYardCutoff:
+          type: string
+          description: Date of container yard cutoff
+          format: date-time
+      required:
+      - cargoReady
+      - departure
+      - arrival
+      - pickup
+      - delivery
+      - trackableId
+      - segments
+    Shipment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the shipment
+        customerReference:
+          type:
+          - string
+          - 'null'
+          description: Reference given to the shipment by the customer
+        shipName:
+          type:
+          - string
+          - 'null'
+          description: Vessel name for the shipment
+        shipperName:
+          type:
+          - string
+          - 'null'
+          description: Name of the shipper of the shipment
+        consigneeName:
+          type:
+          - string
+          - 'null'
+          description: Name of the consignee of the shipment
+        state:
+          type: string
+          description: State that the shipment is in
+          enum:
+          - new
+          - active
+          - completed
+          - canceled
+          - closed
+        transportType:
+          type: string
+          description: Type of the transport
+          enum:
+          - fcl
+          - lcl
+        transportMode:
+          type: string
+          description: Mode of the transport
+          enum:
+          - sea
+          - air
+          - seaAir
+          - rail
+        portOfLoading:
+          type: string
+          description: Code for port of loading
+        portOfDischarge:
+          type: string
+          description: Code for port of discharge
+        cargoReadyDate:
+          type:
+          - string
+          - 'null'
+          description: Cargo ready date
+          format: date-time
+        estimatedDepartureDate:
+          type:
+          - string
+          - 'null'
+          description: Estimated date for departure
+          format: date-time
+        estimatedArrivalDate:
+          type:
+          - string
+          - 'null'
+          description: Estimated date for arrival
+          format: date-time
+        incoTerm:
+          type: string
+          description: Incoterm
+          enum:
+          - EXW
+          - FCA_LW
+          - FCA_T
+          - FAS
+          - FOB
+          - CFR
+          - CIF
+          - CPT
+          - CIP
+          - DPU
+          - DAP
+          - DDP
+        carrier:
+          description: Carrier assigned to the shipment
+          allOf:
+          - $ref: '#/components/schemas/Carrier'
+        onCarriageTransportMode:
+          type:
+          - string
+          - 'null'
+          description: On Carriage transport mode
+          enum:
+          - truck
+          - barge
+          - rail
+        bookingNumber:
+          type:
+          - string
+          - 'null'
+          description: Booking number
+        hblNumber:
+          type:
+          - string
+          - 'null'
+          description: HBL number. DEPRECATED. This field will be removed in a future version. Please use hblList instead.
+          deprecated: true
+        hblList:
+          description: HBL numbers
+          allOf:
+          - $ref: '#/components/schemas/ShipmentHblNumber'
+        mblNumber:
+          type:
+          - string
+          - 'null'
+          description: MBL number
+        mawbNumber:
+          type:
+          - string
+          - 'null'
+          description: MAWB number. Available if transport mode is AIR.
+        hawbNumber:
+          type:
+          - string
+          - 'null'
+          description: HAWB number. Available if transport mode is AIR.
+        emissions:
+          description: Emissions of the shipment (KgCO2e)
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Emissions'
+        containers:
+          description: Containers of the shipment. Null if its an LCL shipment
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ShipmentContainer'
+        cargo:
+          description: Cargo of the shipment. Exists if its an LCL shipment
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ShipmentCargo'
+        tags:
+          description: User-defined array of tags, in key-value format
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerTag'
+      required:
+      - id
+      - customerReference
+      - shipName
+      - shipperName
+      - consigneeName
+      - state
+      - transportType
+      - transportMode
+      - portOfLoading
+      - portOfDischarge
+      - cargoReadyDate
+      - estimatedDepartureDate
+      - estimatedArrivalDate
+      - incoTerm
+      - carrier
+      - onCarriageTransportMode
+      - bookingNumber
+      - hblNumber
+      - mblNumber
+      - mawbNumber
+      - hawbNumber
+      - emissions
+      - containers
+      - cargo
+    ShipmentCargo:
+      type: object
+      properties:
+        quantity:
+          type:
+          - number
+          - 'null'
+          minimum: 1
+          description: Quantity
+        height:
+          type:
+          - number
+          - 'null'
+          description: Height (m)
+        length:
+          type:
+          - number
+          - 'null'
+          description: Length (m)
+        width:
+          type:
+          - number
+          - 'null'
+          description: Width (m)
+        volume:
+          type:
+          - number
+          - 'null'
+          description: Volume (m3)
+        totalVolume:
+          type:
+          - number
+          - 'null'
+          description: Total Volume (m3) - Volume * Quantity
+        unitWeight:
+          type:
+          - number
+          - 'null'
+          description: Unit Weight (kg)
+        totalWeight:
+          type:
+          - number
+          - 'null'
+          description: Total Weight (kg) - Unit Weight * Quantity
+        commodityType:
+          type: string
+          description: Commodity Type
+      required:
+      - quantity
+      - height
+      - length
+      - width
+      - volume
+      - totalVolume
+      - unitWeight
+      - totalWeight
+    ShipmentContainer:
+      type: object
+      properties:
+        size:
+          type: string
+          description: Size of the container
+          enum:
+          - 22GP
+          - 42GP
+          - 45GP
+          - null
+        _id:
+          type: string
+          description: ID of the container
+        containerNumber:
+          type: string
+          description: Physical container number
+        customerReference:
+          type:
+          - string
+          - 'null'
+          description: Reference for the customer
+        customsReferenceNumber:
+          description: Customs reference numbers
+          items:
+            type: array
+          type: array
+        customerData:
+          description: Customer Data
+          allOf:
+          - $ref: '#/components/schemas/ContainerCustomerData'
+        tags:
+          description: User-defined array of tags, in key-value format
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerTag'
+      required:
+      - _id
+      - customerReference
+      - customsReferenceNumber
+    ShipmentInvoiceLineItem:
+      type: object
+      properties:
+        description:
+          type: string
+        costCode:
+          type: string
+        quantity:
+          type: number
+          minimum: 0
+        vatClass:
+          type:
+          - string
+          - 'null'
+        exchangeRate:
+          type: number
+          minimum: 0
+          description: Only exists if currencies are different
+        containerNumber:
+          type: string
+          description: Container number
+        unitPrice:
+          $ref: '#/components/schemas/ShipmentInvoiceMoney'
+        netAmount:
+          $ref: '#/components/schemas/ShipmentInvoiceMoney'
+      required:
+      - description
+      - quantity
+      - vatClass
+      - unitPrice
+      - netAmount
+    ShipmentDocument:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID of the document
+        type:
+          type: string
+          description: Type of the document
+        name:
+          type: string
+          description: Name of the document
+        link:
+          type: string
+          description: Download link for the document
+        linkValidUntil:
+          type: string
+          description: Time that this download link is valid for downloading. Requesting again will generate another download link.
+          format: date-time
+        createdAt:
+          type: string
+          description: Date of upload for the document
+          format: date-time
+      required:
+      - _id
+      - type
+      - name
+      - link
+      - linkValidUntil
+      - createdAt
+    APINotFoundError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: NotFoundException
+          description: Name of NotFoundException
+          enum:
+          - NotFoundException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    TransportPlanSegment:
+      type: object
+      properties:
+        origin:
+          description: Starting point of this segment
+          oneOf:
+          - $ref: '#/components/schemas/TransportPlanSegmentAddressPort'
+            title: Port
+          - $ref: '#/components/schemas/TransportPlanSegmentAddressAddress'
+            title: Address
+          - $ref: '#/components/schemas/TransportPlanSegmentAddressDepot'
+            title: Depot
+        destination:
+          description: Final point of this segment
+          oneOf:
+          - $ref: '#/components/schemas/TransportPlanSegmentAddressPort'
+            title: Port
+          - $ref: '#/components/schemas/TransportPlanSegmentAddressAddress'
+            title: Address
+          - $ref: '#/components/schemas/TransportPlanSegmentAddressDepot'
+            title: Depot
+        shipName:
+          type: string
+          description: Name of the vessel
+        duration:
+          type: number
+          description: Duration of this segment in days
+          minimum: 1
+        type:
+          type: string
+          description: Type of the segment
+          enum:
+          - preRoute
+          - mainRoute
+          - postRoute
+          - haulageRoute
+          - customsRoute
+          - depotRoute
+        airline:
+          type: string
+          description: Airline
+        airlineCode:
+          type: string
+          description: Airline Code
+        flightNumber:
+          type: string
+          description: Flight number
+      required:
+      - origin
+      - destination
+    CarriageLegs:
+      type: object
+      properties:
+        legs:
+          description: Carriage legs
+          type: array
+          items:
+            $ref: '#/components/schemas/TransportPlanSegment'
+      required:
+      - legs
+    APIAuthenticationError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: AuthenticationException
+          description: Name of AuthenticationException
+          enum:
+          - AuthenticationException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    ShipmentHblNumber:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Type of HBL
+        number:
+          type: string
+          description: Number of HBL
+      required:
+      - number
+    ShipmentInvoiceMoney:
+      type: object
+      properties:
+        amount:
+          type: number
+        currency:
+          type: string
+      required:
+      - amount
+      - currency
+    ListShipmentsResponse:
+      type: object
+      properties:
+        items:
+          description: Shipments
+          type: array
+          items:
+            $ref: '#/components/schemas/Shipment'
+        total:
+          type: number
+          minimum: 0
+          description: Total number of items found. DEPRECATED. This field will be removed in a future version. Please use totalItems instead.
+          deprecated: true
+        totalItems:
+          type: number
+          minimum: 0
+          description: Total number of items found
+        page:
+          type: number
+          minimum: 1
+          description: Current page number
+        pageSize:
+          type: number
+          minimum: 1
+          description: Requested size of the page
+      required:
+      - items
+      - total
+      - totalItems
+      - page
+      - pageSize
+    APIAuthorizationError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: AuthorizationException
+          description: Name of AuthorizationException
+          enum:
+          - AuthorizationException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    TransportPlanV2:
+      type: object
+      properties:
+        containerNumber:
+          type: string
+          description: Physical container number
+        containerYardCutoff:
+          type: string
+          description: Date of container yard cutoff
+          format: date-time
+        onCarriage:
+          description: On Carriage segments
+          allOf:
+          - $ref: '#/components/schemas/CarriageLegs'
+        preCarriage:
+          description: Pre Carriage segments
+          allOf:
+          - $ref: '#/components/schemas/CarriageLegs'
+        mainCarriage:
+          description: Main Carriage information
+          allOf:
+          - $ref: '#/components/schemas/CarriageLegs'
+      required:
+      - mainCarriage
+    Carrier:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the carrier
+        name:
+          type: string
+          description: Name of the carrier
+        flightNumber:
+          type:
+          - string
+          - 'null'
+          description: Flight number
+        airline:
+          type:
+          - string
+          - 'null'
+          description: Airline
+        airlineCode:
+          type:
+          - string
+          - 'null'
+          description: Airline Code
+      required:
+      - id
+      - name
+    ShipmentTransportPlanV2:
+      type: object
+      properties:
+        shipmentId:
+          type: string
+          description: ID of the shipment
+        customerReference:
+          type:
+          - string
+          - 'null'
+          description: Reference given to the shipment by the customer
+        transportation:
+          description: Transport planning of the shipment
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanV2'
+      required:
+      - shipmentId
+      - customerReference
+      - transportation
+    FileUpload:
+      type: object
+      properties:
+        file:
+          type: string
+          description: File to upload
+          format: binary
+      required:
+      - file
+    ShipmentTransportPlanEventsV2:
+      type: object
+      properties:
+        shipmentId:
+          type: string
+          description: ID of the shipment
+        customerReference:
+          type:
+          - string
+          - 'null'
+          description: Reference given to the shipment by the customer
+        containerNumbers:
+          type: string
+          minItems: 1
+          description: Physical Container Numbers
+        events:
+          description: Transport planning of the shipment
+          allOf:
+          - $ref: '#/components/schemas/ShipmentTransportPlanMilestones'
+      required:
+      - shipmentId
+      - customerReference
+      - events
+    Emissions:
+      type: object
+      properties:
+        preCarriage:
+          type: number
+          description: Pre-carriage emissions (CO2e)
+        mainCarriage:
+          type: number
+          description: Main carriage emissions (CO2e)
+        onCarriage:
+          type: number
+          description: On-carriage emissions (CO2e)
+      required:
+      - preCarriage
+      - mainCarriage
+      - onCarriage
+    TransportPlanSegmentAddressPort:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Port
+        id:
+          type: string
+          description: ID of the port
+      required:
+      - type
+      - id
+    ShipmentTransportPlanV1:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the shipment
+        customerReference:
+          type:
+          - string
+          - 'null'
+          description: Reference given to the shipment by the customer
+        transportPlans:
+          description: Transport planning of the shipment
+          type: array
+          items:
+            $ref: '#/components/schemas/TransportPlanV1'
+      required:
+      - id
+      - customerReference
+      - transportPlans
+    APIValidationError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: ValidationException
+          description: Name of ValidationException
+          enum:
+          - ValidationException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+      - details
+    ShipmentTransportPlanMilestones:
+      type: object
+      properties:
+        cargoReady:
+          description: Status of cargo ready milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        departure:
+          description: Status of departure milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        arrival:
+          description: Status of arrival milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        pickup:
+          description: Status of pickup milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        delivery:
+          description: Status of delivery milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerGateIn:
+          description: Status of container gate in milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerGateOut:
+          description: Status of container gate out milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentArrival:
+          description: Status of transshipment port arrival milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentDeparture:
+          description: Status of transshipment port departure milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentArrival2:
+          description: Status of second transshipment port arrival milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentDeparture2:
+          description: Status of second transshipment port departure milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentArrival3:
+          description: Status of third transshipment port arrival milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentDeparture3:
+          description: Status of third transshipment port departure milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentArrival4:
+          description: Status of fourth transshipment port arrival milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transshipmentDeparture4:
+          description: Status of fourth transshipment port departure milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerEmptyPickup:
+          description: Status of container empty pickup milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerEmptyReturn:
+          description: Status of container empty return milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerDischargedDestination:
+          description: Status of container discharge at destination milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        customsStopOrigin:
+          description: Status of customs stop at origin milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        customsStopDestination:
+          description: Status of customs stop at destination milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerDischargedTransshipment1:
+          description: Status of container discharge on first transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerDischargedTransshipment2:
+          description: Status of container discharge on second transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerDischargedTransshipment3:
+          description: Status of container discharge on third transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerDischargedTransshipment4:
+          description: Status of container discharge on forth transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerLoadedTransshipment1:
+          description: Status of container load on first transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerLoadedTransshipment2:
+          description: Status of container load on second transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerLoadedTransshipment3:
+          description: Status of container load on third transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerLoadedTransshipment4:
+          description: Status of container load on forth transshipment port milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportArrival:
+          description: Status of arrival to first transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportArrival2:
+          description: Status of arrival to second transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportArrival3:
+          description: Status of arrival to third transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportArrival4:
+          description: Status of arrival to fourth transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportDeparture:
+          description: Status of departure from first transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportDeparture2:
+          description: Status of departure from second transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportDeparture3:
+          description: Status of departure from third transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        transitAirportDeparture4:
+          description: Status of departure from fourth transit airport milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerGateInMultimodalTerminalOrigin:
+          description: Status of container gate in from origin multimodal terminal milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerGateOutMultimodalTerminalOrigin:
+          description: Status of container gate out from origin multimodal terminal milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerGateInMultimodalTerminalDestination:
+          description: Status of container gate in from destination multimodal terminal milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerGateOutMultimodalTerminalDestination:
+          description: Status of container gate out from destination multimodal terminal milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerDepartureAtShipper:
+          description: Status of departure at shipper milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        verifiedGrossMarginStop:
+          description: Status of verified gross margin stop milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        departureFromPointOfReceipt:
+          description: Status of departure from point of receipt milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerLoadingOrigin:
+          description: Status of container origin loading milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerEmptyDeparture:
+          description: Status of container empty departure milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        containerDepartureDelivery:
+          description: Status of departure from container delivery milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        arrivalPartner:
+          description: Status of partner arrival milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        departurePartner:
+          description: Status of partner departure milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        arrivalOrigin:
+          description: Status of origin arrival milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+        receivedFromFlight:
+          description: Status of received from flight milestone
+          allOf:
+          - $ref: '#/components/schemas/TransportPlanStatus'
+      required:
+      - cargoReady
+      - departure
+      - arrival
+      - pickup
+      - delivery
+    ErrorDetails:
+      type: object
+      properties:
+        field:
+          type: string
+          description: Field causing the issue
+        value:
+          type: object
+          description: Value of the field causing the issue
+        location:
+          type: string
+          description: Location of the field causing the issue
+          enum:
+          - path
+          - body
+          - query
+        issue:
+          type: string
+          description: The reason for the error
+      required:
+      - field
+      - issue
+    ContainerCustomerData:
+      type: object
+      properties:
+        earliestETW:
+          type: string
+          description: Earliest ETW
+          format: date-time
+        latestETW:
+          type: string
+          description: Latest ETW
+          format: date-time
+    TransportPlanStatus:
+      type: object
+      properties:
+        timestamp:
+          type:
+          - string
+          - 'null'
+          description: Timestamp of the last time this milestone had a change
+          format: date-time
+        isConfirmed:
+          type: boolean
+          description: Is this status confirmed by a human
+        isActual:
+          type: boolean
+          description: Did this status actually happened
+        delay:
+          type: number
+          description: Number of days delayed
+      required:
+      - timestamp
+      - isConfirmed
+      - isActual
+    TransportPlanSegmentAddressAddress:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Address
+        fullString:
+          type: string
+          description: The full address in string format
+        streetNumber:
+          type: string
+          description: Street number
+        street:
+          type: string
+          description: Street
+        district:
+          type: string
+          description: District
+        city:
+          type: string
+          description: City
+        state:
+          type: string
+          description: State
+        country:
+          type: string
+          description: Country
+        countryCode:
+          type: string
+          description: Country code
+        postalCode:
+          type: string
+          description: Postal code
+      required:
+      - type
+      - fullString
+      - streetNumber
+      - street
+      - district
+      - city
+      - state
+      - country
+      - countryCode
+      - postalCode
+    CustomerTag:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      required:
+      - key
+      - value
+    APIError:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Human readable, unique name of the error.
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+  securitySchemes:
+    Authorization:
+      scheme: bearer
+      bearerFormat: Forto API Key Format
+      type: http
+      description: API Key
+x-provenance:
+  method: searched
+  source: https://developers.forto.com/reference
+  harvested: '2026-10-23'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.forto.com/reference/createsubscriptionv1.md
+  - https://developers.forto.com/reference/createtokenv1.md
+  - https://developers.forto.com/reference/createv1.md
+  - https://developers.forto.com/reference/deletesubscriptionv1.md
+  - https://developers.forto.com/reference/deletetokenv1.md
+  - https://developers.forto.com/reference/discardv1.md
+  - https://developers.forto.com/reference/downloadreportv1.md
+  - https://developers.forto.com/reference/finalizev1.md
+  - https://developers.forto.com/reference/getinboxv1.md
+  - https://developers.forto.com/reference/getshipmentdocumentsv1.md
+  - https://developers.forto.com/reference/getshipmentinvoicesv1.md
+  - https://developers.forto.com/reference/getshipmentsv1.md
+  - https://developers.forto.com/reference/getshipmenttransportplan0.md
+  - https://developers.forto.com/reference/getshipmenttransportplan1v1.md
+  - https://developers.forto.com/reference/getshipmenttransportplaneventsforcontainerv2.md
+  - https://developers.forto.com/reference/getshipmenttransportplaneventsv2.md
+  - https://developers.forto.com/reference/getshipmenttransportplanforcontainerv2.md
+  - https://developers.forto.com/reference/getshipmenttransportplanv2-1.md
+  - https://developers.forto.com/reference/getshipmentv1.md
+  - https://developers.forto.com/reference/gettokensv1.md
+  - https://developers.forto.com/reference/getv1.md
+  - https://developers.forto.com/reference/listsubscriptionsv1.md
+  - https://developers.forto.com/reference/listv1.md
+  - https://developers.forto.com/reference/updatedetailsv1.md
+  - https://developers.forto.com/reference/uploadshipmentdocumentv1.md
+  merge:
+    pages: 25
+    deduped: 256
+    conflicts_kept_first: 0

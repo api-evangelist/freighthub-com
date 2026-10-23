@@ -1,0 +1,33 @@
+generated: '2026-10-23'
+method: generated
+generator: extract-docs-artifacts.py skills (local)
+source: openapi/freighthub-com-forto-platform-api-openapi.yml
+skills:
+- file: skills/freighthub-com-retrieve-shipment-transport-plan.md
+  name: freighthub-com-retrieve-shipment-transport-plan
+  api: openapi/freighthub-com-forto-platform-api-openapi.yml
+  operations:
+  - getShipmentv1
+  - getShipmentTransportPlanv2
+  - getShipmentTransportPlanEventsv2
+- file: skills/freighthub-com-booking-request-flow.md
+  name: freighthub-com-booking-request-flow
+  api: openapi/freighthub-com-forto-platform-api-openapi.yml
+  operations:
+  - createv1
+  - finalizev1
+  - getv1
+- file: skills/freighthub-com-manage-subscriptions.md
+  name: freighthub-com-manage-subscriptions
+  api: openapi/freighthub-com-forto-platform-api-openapi.yml
+  operations:
+  - listSubscriptionsv1
+  - createSubscriptionv1
+  - deleteSubscriptionv1
+- file: skills/freighthub-com-manage-tokens.md
+  name: freighthub-com-manage-tokens
+  api: openapi/freighthub-com-forto-platform-api-openapi.yml
+  operations:
+  - createTokenv1
+  - getTokensv1
+  - deleteTokenv1

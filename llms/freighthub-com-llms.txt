@@ -1,0 +1,39 @@
+# Forto Public API Documentation
+
+> Documentation for Forto Public API
+
+## API Reference: Forto Platform API
+- Shipment
+  - [List/Filter/Paginate Shipments](https://developers.forto.com/reference/getshipmentsv1.md)
+  - [Get Shipment](https://developers.forto.com/reference/getshipmentv1.md)
+  - [Get Documents of a Shipment](https://developers.forto.com/reference/getshipmentdocumentsv1.md)
+  - [Upload a Document for a Shipment](https://developers.forto.com/reference/uploadshipmentdocumentv1.md)
+  - [Get Invoices of a Shipment](https://developers.forto.com/reference/getshipmentinvoicesv1.md)
+  - [Get Transport Plan](https://developers.forto.com/reference/getshipmenttransportplan0.md)
+  - [Get Transport Plan](https://developers.forto.com/reference/getshipmenttransportplan1v1.md)
+  - [Get Transport Plan](https://developers.forto.com/reference/getshipmenttransportplanv2-1.md)
+  - [Get Transport Plan Events](https://developers.forto.com/reference/getshipmenttransportplaneventsv2.md)
+  - [Get Transport Plan of a container](https://developers.forto.com/reference/getshipmenttransportplanforcontainerv2.md)
+  - [Get Transport Plan Events of a container](https://developers.forto.com/reference/getshipmenttransportplaneventsforcontainerv2.md)
+- [Subscriptions](https://developers.forto.com/reference/subscriptions.md): Subscriptions are a way to get notified about the changes happening to your entities.
+  - [List/Filter/Paginate Subscriptions](https://developers.forto.com/reference/listsubscriptionsv1.md)
+  - [Create a Subscription](https://developers.forto.com/reference/createsubscriptionv1.md)
+  - [Delete a Subscription](https://developers.forto.com/reference/deletesubscriptionv1.md)
+  - [List/Filter/Paginate Inbox Events](https://developers.forto.com/reference/getinboxv1.md)
+- Booking Request
+  - [Get a booking request by its ID](https://developers.forto.com/reference/getv1.md)
+  - [List booking requests](https://developers.forto.com/reference/listv1.md)
+  - [Create a booking request](https://developers.forto.com/reference/createv1.md)
+  - [Update details of a booking request](https://developers.forto.com/reference/updatedetailsv1.md)
+  - [Finalize a booking request](https://developers.forto.com/reference/finalizev1.md)
+  - [Discard a booking request](https://developers.forto.com/reference/discardv1.md)
+- Reports
+  - [Download a report](https://developers.forto.com/reference/downloadreportv1.md)
+- Tokens
+  - [Create a Token](https://developers.forto.com/reference/createtokenv1.md)
+  - [Paginate/List Tokens](https://developers.forto.com/reference/gettokensv1.md)
+  - [Delete a Token](https://developers.forto.com/reference/deletetokenv1.md)
+
+## Tutorials
+- [[Code Sample] Listening for changes with webhook subscription](https://developers.forto.com/recipes/code-sample-listening-for-changes-with-webhook-subscription.md)
+- [Creation of Booking Request](https://developers.forto.com/recipes/creation-of-booking-request.md)

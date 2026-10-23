@@ -1,0 +1,711 @@
+openapi: 3.2.0
+info:
+  title: Forto Platform Subscriptions API
+  description: Public API schema
+  version: '1.0'
+  contact:
+    name: Customer Integrations Team
+    url: ''
+    email: ''
+servers:
+- url: https://public-api.forto.io
+  description: Our Sandbox API
+- url: https://public-api.forto.com
+  description: Our Production API
+tags:
+- name: Subscriptions
+paths:
+  /v1/events-api/inbox/{id}:
+    get:
+      operationId: getInboxv1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: ID of the entity
+        schema:
+          type: string
+      - name: pageSize
+        required: false
+        in: query
+        description: Desired amount of entities in the response
+        schema:
+          minimum: 1
+          maximum: 50
+          default: 50
+          type: number
+      - name: page
+        required: false
+        in: query
+        description: Desired page of entities
+        schema:
+          minimum: 1
+          default: 1
+          type: number
+      - name: sID
+        required: false
+        in: query
+        description: Forto Shipment ID
+        schema:
+          example: S123456
+          type: string
+      - name: eventType
+        required: true
+        in: query
+        description: Event type
+        schema:
+          example: shipmentUpdated
+          enum:
+          - shipmentCreated
+          - shipmentUpdated
+          - shipmentDeleted
+          - documentUpdated
+          - scheduledReportGenerated
+          - transportPlanUpdated
+          - customsStatusUpdated
+          - shipmentInvoiceCreated
+          type: string
+      - name: customerReference
+        required: false
+        in: query
+        description: Shipment Customer Reference
+        schema:
+          example: custRef1
+          type: string
+      responses:
+        '200':
+          description: Paginated response of events from Inbox
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListInboxEntriesResponse'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: List/Filter/Paginate Inbox Events
+      tags:
+      - Subscriptions
+  /v1/events-api/subscriptions:
+    get:
+      operationId: listSubscriptionsv1
+      parameters:
+      - name: type
+        required: false
+        in: query
+        description: Types of subscription, either webhook or inbox. Defaults to webhook when creating a webhook with no type specified.
+        schema:
+          example:
+          - inbox
+          - webhook
+          enum:
+          - inbox
+          - webhook
+          type: string
+      - name: url
+        required: false
+        in: query
+        description: URL of the webhook where the request will be sent
+        schema:
+          format: uri
+          example: https://my.webhook.com
+          type: string
+      - name: eventTypes
+        required: false
+        in: query
+        description: Types of events
+        schema:
+          minItems: 1
+          example:
+          - shipmentCreated
+          type: array
+          items:
+            type: string
+            enum:
+            - shipmentCreated
+            - shipmentUpdated
+            - shipmentDeleted
+            - documentUpdated
+            - scheduledReportGenerated
+            - transportPlanUpdated
+            - customsStatusUpdated
+            - shipmentInvoiceCreated
+      - name: pageSize
+        required: false
+        in: query
+        description: Desired amount of entities in the response
+        schema:
+          minimum: 1
+          maximum: 50
+          default: 50
+          type: number
+      - name: page
+        required: false
+        in: query
+        description: Desired page of entities
+        schema:
+          minimum: 1
+          default: 1
+          type: number
+      responses:
+        '200':
+          description: Paginated response of Subscriptions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSubscriptionsResponse'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: List/Filter/Paginate Subscriptions
+      tags:
+      - Subscriptions
+    post:
+      operationId: createSubscriptionv1
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSubscriptionBody'
+      responses:
+        '201':
+          description: Created subscription
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Create a Subscription
+      tags:
+      - Subscriptions
+  /v1/events-api/subscriptions/{id}:
+    delete:
+      operationId: deleteSubscriptionv1
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: ID of the entity
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OkResponse'
+        '400':
+          description: Request is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIValidationError'
+        '401':
+          description: Authorization failed for this request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthenticationError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIAuthorizationError'
+        '404':
+          description: Requested resource cannot be found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APINotFoundError'
+        default:
+          description: Default Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      security:
+      - Authorization: []
+      summary: Delete a Subscription
+      tags:
+      - Subscriptions
+components:
+  schemas:
+    APINotFoundError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: NotFoundException
+          description: Name of NotFoundException
+          enum:
+          - NotFoundException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    Subscription:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the subscription
+          example: 22c11f475004c6ce09127ffe
+        type:
+          enum:
+          - inbox
+          - webhook
+          type: string
+          description: Types of subscription, either webhook or inbox. Defaults to webhook when creating a webhook with no type specified.
+          example:
+          - inbox
+          - webhook
+        name:
+          type: string
+          description: Name of the subscription
+          example: My Subscription
+        url:
+          type: string
+          format: uri
+          description: URL of the webhook where the request will be sent
+          example: https://my.webhook.com
+        eventTypes:
+          type: array
+          minItems: 1
+          description: Types of events
+          example:
+          - shipmentCreated
+          items:
+            type: string
+            enum:
+            - shipmentCreated
+            - shipmentUpdated
+            - shipmentDeleted
+            - documentUpdated
+            - scheduledReportGenerated
+            - transportPlanUpdated
+            - customsStatusUpdated
+            - shipmentInvoiceCreated
+        signatureKey:
+          type: string
+          description: Signature key that will be used to sign the requests
+          example: 0a4n4330ef76f1e361cfdcb2fc17e56c41e8a8f9a
+      required:
+      - id
+      - eventTypes
+      - signatureKey
+    ErrorDetails:
+      type: object
+      properties:
+        field:
+          type: string
+          description: Field causing the issue
+        value:
+          type: object
+          description: Value of the field causing the issue
+        location:
+          type: string
+          description: Location of the field causing the issue
+          enum:
+          - path
+          - body
+          - query
+        issue:
+          type: string
+          description: The reason for the error
+      required:
+      - field
+      - issue
+    OkResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          default: true
+          description: OK response
+      required:
+      - ok
+    APIAuthenticationError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: AuthenticationException
+          description: Name of AuthenticationException
+          enum:
+          - AuthenticationException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    CreateSubscriptionBody:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the subscription
+          example: My Subscription
+        eventTypes:
+          type: array
+          minItems: 1
+          description: Types of events
+          example:
+          - shipmentCreated
+          items:
+            type: string
+            enum:
+            - shipmentCreated
+            - shipmentUpdated
+            - shipmentDeleted
+            - documentUpdated
+            - scheduledReportGenerated
+            - transportPlanUpdated
+            - customsStatusUpdated
+            - shipmentInvoiceCreated
+        type:
+          enum:
+          - inbox
+          - webhook
+          type: string
+          description: Types of subscription, either webhook or inbox. Defaults to webhook when creating a webhook with no type specified.
+          example:
+          - inbox
+          - webhook
+        url:
+          type: string
+          format: uri
+          description: URL of the webhook where the request will be sent
+          example: https://my.webhook.com
+      required:
+      - eventTypes
+    APIError:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Human readable, unique name of the error.
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    ListInboxEntriesResponse:
+      type: object
+      properties:
+        items:
+          description: Inbox Events
+          type: array
+          items:
+            $ref: '#/components/schemas/InboxEventRecord'
+        totalItems:
+          type: number
+          minimum: 0
+          description: Total number of items found
+        page:
+          type: number
+          minimum: 1
+          description: Current page number
+        pageSize:
+          type: number
+          minimum: 1
+          description: Requested size of the page
+      required:
+      - items
+      - totalItems
+      - page
+      - pageSize
+    APIAuthorizationError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: AuthorizationException
+          description: Name of AuthorizationException
+          enum:
+          - AuthorizationException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+    InboxEventRecord:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the inbox message
+          example: 22c11f475004c6ce09127ffe
+        subscriptionId:
+          type: string
+          description: ID of the subscription
+          example: 22c11f475004c6ce09127ffe
+        sID:
+          type: string
+          description: Forto shipment ID
+          example: S123456
+        customerReference:
+          type: string
+          description: Customer reference of the shipment
+          example: custRef1
+        eventType:
+          type: string
+          description: Type of the event
+          enum:
+          - shipmentCreated
+          - shipmentUpdated
+          - shipmentDeleted
+          - documentUpdated
+          - scheduledReportGenerated
+          - transportPlanUpdated
+          - customsStatusUpdated
+          - shipmentInvoiceCreated
+          example: shipmentCreated
+        data:
+          type: object
+          description: Content of the event
+      required:
+      - id
+      - subscriptionId
+      - sID
+      - eventType
+      - data
+    ListSubscriptionsResponse:
+      type: object
+      properties:
+        items:
+          description: Subscriptions
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription'
+        totalItems:
+          type: number
+          minimum: 0
+          description: Total number of items found
+        page:
+          type: number
+          minimum: 1
+          description: Current page number
+        pageSize:
+          type: number
+          minimum: 1
+          description: Requested size of the page
+      required:
+      - items
+      - totalItems
+      - page
+      - pageSize
+    APIValidationError:
+      type: object
+      properties:
+        name:
+          type: string
+          default: ValidationException
+          description: Name of ValidationException
+          enum:
+          - ValidationException
+        debugID:
+          type: string
+          description: Internal identifier used for correlation purposes.
+        message:
+          type: string
+          description: Message describing the error.
+        informationLink:
+          type: string
+          description: URI for detailed information related to this error for the developer.
+        details:
+          description: 'Additional details for the error. '
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorDetails'
+      required:
+      - name
+      - debugID
+      - message
+      - details
+  securitySchemes:
+    Authorization:
+      scheme: bearer
+      bearerFormat: Forto API Key Format
+      type: http
+      description: API Key
+x-provenance:
+  method: searched
+  source: https://developers.forto.com/reference
+  harvested: '2026-10-23'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developers.forto.com/reference/createsubscriptionv1.md
+  - https://developers.forto.com/reference/createtokenv1.md
+  - https://developers.forto.com/reference/createv1.md
+  - https://developers.forto.com/reference/deletesubscriptionv1.md
+  - https://developers.forto.com/reference/deletetokenv1.md
+  - https://developers.forto.com/reference/discardv1.md
+  - https://developers.forto.com/reference/downloadreportv1.md
+  - https://developers.forto.com/reference/finalizev1.md
+  - https://developers.forto.com/reference/getinboxv1.md
+  - https://developers.forto.com/reference/getshipmentdocumentsv1.md
+  - https://developers.forto.com/reference/getshipmentinvoicesv1.md
+  - https://developers.forto.com/reference/getshipmentsv1.md
+  - https://developers.forto.com/reference/getshipmenttransportplan0.md
+  - https://developers.forto.com/reference/getshipmenttransportplan1v1.md
+  - https://developers.forto.com/reference/getshipmenttransportplaneventsforcontainerv2.md
+  - https://developers.forto.com/reference/getshipmenttransportplaneventsv2.md
+  - https://developers.forto.com/reference/getshipmenttransportplanforcontainerv2.md
+  - https://developers.forto.com/reference/getshipmenttransportplanv2-1.md
+  - https://developers.forto.com/reference/getshipmentv1.md
+  - https://developers.forto.com/reference/gettokensv1.md
+  - https://developers.forto.com/reference/getv1.md
+  - https://developers.forto.com/reference/listsubscriptionsv1.md
+  - https://developers.forto.com/reference/listv1.md
+  - https://developers.forto.com/reference/updatedetailsv1.md
+  - https://developers.forto.com/reference/uploadshipmentdocumentv1.md
+  merge:
+    pages: 25
+    deduped: 256
+    conflicts_kept_first: 0

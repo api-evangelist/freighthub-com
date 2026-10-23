@@ -1,0 +1,16 @@
+generated: '2026-10-23'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://developers.forto.com/reference/createtokenv1.md
+sources:
+- https://developers.forto.com/reference/createtokenv1.md
+- https://developers.forto.com/reference/gettokensv1.md
+- https://developers.forto.com/reference/deletetokenv1.md
+description: Authentication schemes for Forto API
+schemes:
+- type: http-bearer
+  name: Authorization
+  evidence: 'description": "API Key"'
+  location: header
+  header: Authorization
+docs: https://developers.forto.com/reference/createtokenv1.md

@@ -1,0 +1,77 @@
+generated: '2026-10-23'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 5
+  own: 2
+  other_domain: 3
+  platform: 0
+  roles:
+  - api
+  - docs
+  - website
+hosts:
+- host: api.forto.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: forto.com
+  role: api
+  relation: other-domain
+- host: api.freighthub.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: freighthub.com
+  role: api
+  relation: own
+- host: developers.forto.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - docs-index
+  - contract-discovery
+  - well-known
+  types:
+  - Documentation
+  serves:
+  - docs
+  registrable_domain: forto.com
+  role: docs
+  relation: other-domain
+- host: forto.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - docs-index
+  - contract-discovery
+  - well-known
+  types:
+  - PrivacyPolicy
+  - GettingStarted
+  - Blog
+  serves:
+  - docs
+  registrable_domain: forto.com
+  role: docs
+  relation: other-domain
+- host: freighthub.com
+  found_by:
+  - pointer
+  - probed
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - Website
+  serves:
+  - cdn
+  vendor: cloudflare
+  registrable_domain: freighthub.com
+  role: website
+  relation: own
