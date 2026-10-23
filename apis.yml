@@ -1,0 +1,25 @@
+aid: freighthub-com
+name: Forto
+description: 'Forto is a company surfaced via the API Evangelist harvest backlog (source: vc-portfolio;
+  backed by northzone) and added to the network as a stub for full-pipeline profiling.'
+url: https://raw.githubusercontent.com/api-evangelist/freighthub-com/refs/heads/main/apis.yml
+x-type: company
+x-source: harvest:vc-portfolio
+x-tier: stub
+x-tier-reason: harvest
+specificationVersion: '0.20'
+created: '2026-10-22'
+modified: '2026-10-22'
+tags:
+- Company
+apis: []
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
+x-backed-by:
+- northzone
+common:
+- type: Website
+  url: http://freighthub.com
